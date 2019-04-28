@@ -4,7 +4,17 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var passport = require("passport");
-var session = require('express-session')
+var session = require('express-session');
+var mongoose = require('mongoose');
+
+// Connect to mongo
+mongoose.connect('mongodb+srv://b03902130:leo19941227@webprog2019-ikmvq.mongodb.net/midterm?retryWrites=true', {
+    useNewUrlParser: true
+});
+db = mongoose.connection;
+db.on('error', error => {
+    console.log(error)
+});
 
 var authRouter = require("./routes/auth");
 var axiosRouter = require("./routes/axios");

@@ -5,7 +5,7 @@ import Home from './contents/Home';
 import Teachers from './contents/Teachers';
 import Subjects from './contents/Subjects';
 import About from './contents/About';
-import Person from './contents/Person';
+// import Person from './contents/Person';
 
 class Content extends Component {
     render() {

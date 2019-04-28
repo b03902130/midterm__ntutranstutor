@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Navbar, Nav, NavDropdown, Form, FormControl, Button } from "react-bootstrap";
+import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { NavLink } from 'react-router-dom';
 import renderURI from '../renderURI';
 
@@ -32,8 +32,8 @@ class Navigator extends Component {
                     <Nav className="justify-content-end">
                         <Nav.Link onClick={this.props.testSession}>連線狀態</Nav.Link>
                         {
-                            !this.props.loggedin ? <Nav.Link href={renderURI("/auth/google")}>登入（powered by Google）</Nav.Link> :
-                                <NavDropdown title={this.props.username} id="basic-nav-dropdown" alignRight  >
+                            !this.props.user ? <Nav.Link href={renderURI("/auth/google")}>登入（powered by Google）</Nav.Link> :
+                                <NavDropdown title={this.props.user.name} id="basic-nav-dropdown" alignRight  >
                                     <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                                     <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
                                     <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
