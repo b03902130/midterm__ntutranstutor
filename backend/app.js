@@ -14,7 +14,7 @@ var app = express();
 // only for development
 var cors = require('cors');
 app.use(cors({
-	origin: ['http://linux1.csie.ntu.edu.tw:8765'],
+	origin: ['http://localhost:3000'],
 	methods: ['GET', 'POST'],
 	credentials: true // enable set cookie
 }));
