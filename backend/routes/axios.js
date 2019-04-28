@@ -18,7 +18,7 @@ router.get('/session', function (req, res, next) {
     else {
         res.send({
             loggedin: true,
-            username: "Leo Yang"
+            username: req.session.username
         });
     }
 });

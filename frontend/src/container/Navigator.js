@@ -20,7 +20,7 @@ class Navigator extends Component {
     }
     render() {
         return (
-            <Navbar bg="light" expand="lg">
+            <Navbar bg="white" expand="lg" style={{boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1)"}} >
                 <Navbar.Brand><NavLink to="/" style={{ color: "black", fontWeight: "bold", textDecoration: 'none' }}>台大轉學生家教平台</NavLink></Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
@@ -30,7 +30,7 @@ class Navigator extends Component {
                         <Nav.Link><NavLink to="/about" style={this.linkstyle} activeStyle={this.activeStyle}>關於</NavLink></Nav.Link>
                     </Nav>
                     <Nav className="justify-content-end">
-                        <Nav.Link onClick={this.props.testSession}>連線測試</Nav.Link>
+                        <Nav.Link onClick={this.props.testSession}>連線狀態</Nav.Link>
                         {
                             !this.props.loggedin ? <Nav.Link href={renderURI("/auth/google")}>登入（powered by Google）</Nav.Link> :
                                 <NavDropdown title={this.props.username} id="basic-nav-dropdown" alignRight  >

@@ -18,7 +18,8 @@ router.get(
 		
 		// establish a session
 		req.session.userid = data.id;
-		
+		req.session.username = data.displayName;
+				
 		// these should be insert into database, use userid as primary key
 		let userid = data.id;
 		let username = data.displayName;

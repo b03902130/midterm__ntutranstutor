@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { Route, Redirect, Switch } from 'react-router-dom';
 
-import Home from './Home';
-import Teachers from './Teachers';
-import Subjects from './Subjects';
-import About from './About';
-import Person from './Person';
+import Home from './contents/Home';
+import Teachers from './contents/Teachers';
+import Subjects from './contents/Subjects';
+import About from './contents/About';
+import Person from './contents/Person';
 
 class Content extends Component {
     render() {
