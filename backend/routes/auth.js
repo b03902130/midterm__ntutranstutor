@@ -24,7 +24,7 @@ router.get(
 		let username = data.displayName;
 		let userimgurl = data.image.url;
 		
-		res.redirect(req.header("Referer"));
+		res.redirect("http://localhost:3000/home");
 		// res.redirect("http://linux1.csie.ntu.edu.tw:8765?token=" + token);
 		// when production, change port to 5678
 	}

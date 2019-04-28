@@ -10,10 +10,16 @@ router.get('/logout', function (req, res, next) {
 // test if session already established for a user
 router.get('/session', function (req, res, next) {
     if (!req.session.userid) {
-        res.send(false);
+        res.send({
+            loggedin: false,
+            username: undefined
+        });
     }
     else {
-        res.send(true);
+        res.send({
+            loggedin: true,
+            username: "Leo Yang"
+        });
     }
 });
 
