@@ -22,8 +22,12 @@ class App extends Component {
     }
 
     // tool function used to test the session status
-    async sendAxios(operation) {
+    async getAxios(operation) {
         const { data } = await Axios.get(renderURI("/axios/") + operation);
+        console.log(data);
+    }
+    async postAxios(operation) {
+        const { data } = await Axios.post(renderURI("/axios/") + operation);
         console.log(data);
     }
 
@@ -38,9 +42,10 @@ class App extends Component {
             <div className="App">
                 <BrowserRouter>
                     <div>
-                        {/* <button onClick={() => { this.sendAxios("create") }}>create</button>
-                        <button onClick={() => { this.sendAxios("retrieve") }}>retrieve</button> */}
-                        <Navigator user={this.state.user} testSession={() => { this.sendAxios("connected") }} logout={this.logout} />
+                        <button onClick={() => { this.getAxios("create") }}>create</button>
+                        <button onClick={() => { this.getAxios("retrieve") }}>retrieve</button>
+                        <button onClick={() => { this.postAxios("courses") }}>courses</button>
+                        <Navigator user={this.state.user} testSession={() => { this.getAxios("connected") }} logout={this.logout} />
                         <Content />
                     </div>
                 </BrowserRouter>

@@ -3,6 +3,7 @@ var router = express.Router();
 
 // mongoose schema
 var Message = require('../models/message');
+var Whitelist = require('../models/whitelist');
 
 router.get('/logout', function (req, res, next) {
     req.session.destroy(() => {
@@ -27,6 +28,22 @@ router.get('/session', function (req, res, next) {
     }
 });
 
+router.post('/courses', function (req, res, next) {
+    if (!req.session.userid) {
+        res.send("Please log in first");
+    }
+    let criteria = req.session.useremails.map(email => {
+        return { email: email.value };
+    });
+    Whitelist.find({ $or: criteria }, function (err, docs) {
+        if (docs.length === 0) {
+            res.send("not authorized");
+        }
+        else {
+            res.send("succeed");
+        }
+    });
+});
 
 // FOR TESTING
 

@@ -18,11 +18,12 @@ router.get(
 	async function (req, res) {
 		var token = req.user.token;
 		const { data } = await axios.get("https://www.googleapis.com/plus/v1/people/me?access_token=" + token);
-
+		
 		// establish a session
 		req.session.userid = data.id;
 		req.session.username = data.displayName;
 		req.session.userimgurl = data.image.url;
+		req.session.useremails = data.emails;  // an array, each element is an object: {value, type}
 
 		// these should be insert into database, use userid as primary key
 		let googleid = data.id;
