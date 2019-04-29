@@ -92,14 +92,27 @@ router.get('/teachers/:id/', (req, res, next) => {
     });
 });
 
-router.post('/teachers/:id/', (req, res, next) => {
+router.post('/teachers/:id/put', (req, res, next) => {
     Teacher.updateOne({ _id: req.params.id }, { description: req.body.description }, (err, docs) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send();
+        }
         if (docs.length === 0) {
             res.status(400).send("Teacher unexisted");
         }
-        else {
-            res.status(200).send();
+        res.status(200).send();
+
+    });
+});
+
+router.post('/teachers/:id/delete', (req, res, next) => {
+    Teacher.deleteOne({ _id: req.params.id }, (err) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send();
         }
+        res.status(200).send();
     });
 });
 

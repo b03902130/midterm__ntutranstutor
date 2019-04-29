@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from 'react-router-dom';
-import renderURI from '../../renderURI';
+import renderURI from '../../../renderURI';
 
 import Axios from 'axios'
 Axios.defaults.withCredentials = true
@@ -24,13 +24,24 @@ class TeacherEdit extends Component {
     }
 
     submit = async () => {
-        await Axios.post(renderURI("/axios/teachers/" + this.props.match.params.id), { description: this.state.description })
+        await Axios.post(renderURI("/axios/teachers/" + this.props.match.params.id + "/put"), { description: this.state.description })
             .catch((error) => {
                 if (error.response) {
                     alert(error.response.data);
                 }
             });
         this.setState({ submitted: true });
+    }
+
+    delete = async () => {
+        await Axios.post(renderURI("/axios/teachers/" + this.props.match.params.id + "/delete"))
+            .catch((error) => {
+                if (error.response) {
+                    alert(error.response.data);
+                }
+            });
+        this.setState({ submitted: true });
+        this.props.refresh();
     }
 
     render() {
@@ -48,6 +59,9 @@ class TeacherEdit extends Component {
                                     <label htmlFor="teacher_description">個人介紹</label>
                                     <textarea id="teacher_description" value={this.state.description} onChange={this.change} />
                                     <button type="submit" onClick={this.submit}>submit</button>
+                                </div>
+                                <div>
+                                    <button type="submit" onClick={this.delete}>delete</button>
                                 </div>
                             </div>
 

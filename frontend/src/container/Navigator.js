@@ -40,7 +40,7 @@ class Navigator extends Component {
                                 <NavDropdown title={this.props.session.username} id="basic-nav-dropdown" alignRight  >
                                     {
                                         this.props.session.identity === "candidate" && 
-                                        <NavDropdown.Item><Link style={this.dropstyle} to="/teacher/new">成為教師</Link></NavDropdown.Item>
+                                        <NavDropdown.Item><Link style={this.dropstyle} to="/teachers/new">成為教師</Link></NavDropdown.Item>
                                     }
                                     {
                                         this.props.session.identity === "teacher" && 

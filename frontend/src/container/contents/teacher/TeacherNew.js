@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from 'react-router-dom';
-import renderURI from '../../renderURI';
+import renderURI from '../../../renderURI';
 
 import Axios from 'axios'
 Axios.defaults.withCredentials = true
@@ -42,7 +42,7 @@ class TeacherNew extends Component {
                         <Redirect to="/" />
                         :
                         this.state.submitted ?
-                            <Redirect to="/teachers" />
+                            <Redirect to={`/teachers/${this.props.session.teacherid}`} />
                             :
                             <div className="TeacherForm">
                                 <div>
