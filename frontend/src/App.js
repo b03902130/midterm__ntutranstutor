@@ -12,13 +12,12 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: undefined
+            session: undefined
         };
     }
 
     async componentDidMount() {
-        const { data } = await Axios.get(renderURI("/axios/session"));
-        this.setState({ user: data.user });
+        this.refresh();
     }
 
     // tool function used to test the session status
@@ -32,9 +31,13 @@ class App extends Component {
     }
 
     logout = async () => {
-        const { data } = await Axios.get(renderURI("/axios/logout"));
-        console.log(data);
-        this.setState({ user: undefined });
+        await Axios.get(renderURI("/axios/logout"));
+        this.setState({ session: undefined });
+    }
+
+    refresh = async () => {
+        const { data } = await Axios.get(renderURI("/axios/session"));
+        this.setState({ session: data.session });
     }
 
     render() {
@@ -42,11 +45,8 @@ class App extends Component {
             <div className="App">
                 <BrowserRouter>
                     <div>
-                        <button onClick={() => { this.getAxios("create") }}>create</button>
-                        <button onClick={() => { this.getAxios("retrieve") }}>retrieve</button>
-                        <button onClick={() => { this.postAxios("courses") }}>courses</button>
-                        <Navigator user={this.state.user} testSession={() => { this.getAxios("connected") }} logout={this.logout} />
-                        <Content />
+                        <Navigator session={this.state.session} testSession={() => { this.getAxios("connection") }} logout={this.logout} />
+                        <Content session={this.state.session} refresh={this.refresh} />
                     </div>
                 </BrowserRouter>
             </div>
