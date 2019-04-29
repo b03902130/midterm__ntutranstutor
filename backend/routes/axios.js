@@ -19,26 +19,8 @@ router.get('/session', function (req, res, next) {
         });
     }
     else {
-        let criteria = req.session.useremails.map(email => {
-            return { email: email.value };
-        });
-        let identity = "outsider";
-        Whitelist.find({ $or: criteria }, (err, docs) => {
-            if (docs.length !== 0) {
-                identity = "candidate";
-            }
-            Teacher.where("googleid", req.session.googleid).exec((err, docs) => {
-                req.session.teacherid = undefined;
-                if (docs.length !== 0) {
-                    identity = "teacher";
-                    req.session.teacherid = docs[0]._id;
-                }
-                req.session.identity = identity;
-
-                res.status(200).send({
-                    session: req.session
-                });
-            });
+        res.status(200).send({
+            session: req.session
         });
     }
 });

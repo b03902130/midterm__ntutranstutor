@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var { checkSession, checkAuthorized, dealServerError } = require('./tools');
+var { checkSession, checkAuthorized, dealServerError, refreshSession } = require('./tools');
 
 // mongoose schema
 var Teacher = require('../models/teacher');
@@ -14,7 +14,9 @@ router.post('/', checkSession, checkAuthorized, (req, res, next) => {
             const teacher = new Teacher({ googleid: req.session.googleid, description: req.body.description });
             teacher.save(err => {
                 dealServerError(err, res);
-                res.status(200).send();
+                refreshSession(req, res, () => {
+                    res.status(200).send();
+                });
             })
         }
     });
@@ -61,7 +63,9 @@ router.post('/:id/put/', checkSession, checkTeacher, (req, res, next) => {
 router.post('/:id/delete/', checkSession, checkTeacher, (req, res, next) => {
     Teacher.deleteOne({ _id: req.params.id }, (err) => {
         dealServerError(err, res);
-        res.status(200).send();
+        refreshSession(req, res, () => {
+            res.status(200).send();
+        });
     });
 });
 
