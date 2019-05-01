@@ -11,9 +11,17 @@ Axios.defaults.withCredentials = true
 class App extends Component {
     constructor(props) {
         super(props);
+        this.initial = {
+            googleid: "",
+            name: "",
+            imgurl: "",
+            emails: "",
+            identity: "",
+            teacherid: "",
+        }
         this.state = {
             // data
-            session: undefined,
+            ...this.initial,
 
             //  methods
             getAxios: (operation, dataHandler) => {
@@ -28,12 +36,12 @@ class App extends Component {
             },
             logout: () => {
                 this.state.getAxios("/logout", data => {
-                    this.setState({ session: undefined });
+                    this.setState(this.initial);
                 });
             },
             updateSession: () => {
                 this.state.getAxios("/session", data => {
-                    this.setState({ session: data.session });
+                    this.setState({ ...data });
                 });
             },
             callback: async (handler) => {

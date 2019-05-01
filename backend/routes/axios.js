@@ -15,15 +15,11 @@ router.get('/logout', function (req, res, next) {
 
 router.get('/session', function (req, res, next) {
     if (!req.session.googleid) {
-        res.status(200).send({
-            session: undefined
-        });
+        res.status(200).send(undefined);
     }
     else {
         tools.refreshSession(req, res, () => {
-            res.status(200).send({
-                session: req.session
-            });
+            res.status(200).send(req.session);
         });
     }
 });

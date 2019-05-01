@@ -21,7 +21,7 @@ module.exports = {
         }
     },
     refreshSession: function (req, res, next) {
-        let criteria = req.session.useremails.map(email => {
+        let criteria = req.session.emails.map(email => {
             return { email: email.value };
         });
         let identity = "outsider";

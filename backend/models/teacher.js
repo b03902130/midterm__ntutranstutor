@@ -5,11 +5,19 @@ const Schema = mongoose.Schema
 const TeacherSchema = new Schema({
     googleid: {
         type: String,
-        required: [true, 'Googleid field is required.']
+        required: [true, 'googleid field is required.']
+    },
+    name: {
+        type: String,
+        required: [true, 'name field is required.']
+    },
+    imgurl: {
+        type: String,
+        required: [true, 'imgurl field is required.']
     },
     description: {
         type: String,
-        required: [true, 'Description field is required.']
+        required: [true, 'description field is required.']
     },
 })
 

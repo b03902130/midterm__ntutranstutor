@@ -21,10 +21,6 @@ class Navigator extends Component {
             color: "black",
             textDecoration: 'none'
         };
-        this.content = {
-            state: this.state,
-            function: this.function
-        };
     }
     render() {
         return (
@@ -39,15 +35,15 @@ class Navigator extends Component {
                     <Nav className="justify-content-end">
                         <Nav.Link onClick={() => {this.props.app.getAxios("/connection", console.log)}}>連線狀態</Nav.Link>
                         {
-                            !this.props.app.session ? <Nav.Link href={renderURI("/auth/google")}>登入（powered by Google）</Nav.Link> :
-                                <NavDropdown title={this.props.app.session.username} id="basic-nav-dropdown" alignRight  >
+                            !this.props.app.name ? <Nav.Link href={renderURI("/auth/google")}>登入（powered by Google）</Nav.Link> :
+                                <NavDropdown title={this.props.app.name} id="basic-nav-dropdown" alignRight  >
                                     {
-                                        this.props.app.session.identity === "candidate" && 
+                                        this.props.app.identity === "candidate" && 
                                         <NavDropdown.Item><Link style={this.dropstyle} to="/teachers/new">成為教師</Link></NavDropdown.Item>
                                     }
                                     {
-                                        this.props.app.session.identity === "teacher" && 
-                                        <NavDropdown.Item><Link style={this.dropstyle} to={"/teachers/" + this.props.app.session.teacherid + "/edit"}>管理教師頁面</Link></NavDropdown.Item>
+                                        this.props.app.identity === "teacher" && 
+                                        <NavDropdown.Item><Link style={this.dropstyle} to={"/teachers/" + this.props.app.teacherid + "/edit"}>管理教師頁面</Link></NavDropdown.Item>
                                     }
                                     <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
                                     <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>

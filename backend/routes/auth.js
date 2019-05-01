@@ -23,9 +23,9 @@ router.get(
 
 		// establish a session
 		req.session.googleid = data.id;
-		req.session.username = data.displayName;
-		req.session.userimgurl = data.image.url;
-		req.session.useremails = data.emails;  // an array, each element is an object: {value, type}
+		req.session.name = data.displayName;
+		req.session.imgurl = data.image.url;
+		req.session.emails = data.emails;  // an array, each element is an object: {value, type}
 
 		tools.refreshSession(req, res, () => {
 			res.redirect("http://localhost:3000/");

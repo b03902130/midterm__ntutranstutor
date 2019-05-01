@@ -7,16 +7,12 @@ var Teacher = require('../models/teacher');
 
 // check if the user has privilege to modifiy teacher information
 function checkTeacher(req, res, next) {
-    Teacher.where("_id", req.params.id).exec()
-        .then(docs => {
-            if (docs.length === 0 || docs[0].googleid !== req.session.googleid) {
-                res.status(401).send("Unauthorized access");
-            }
-            next();
-        })
-        .catch(err => {
-            dealServerError(err, res);
-        });
+    Teacher.where("_id", req.params.id).exec().catch(err => { dealServerError(err, res); }).then(docs => {
+        if (docs.length === 0 || docs[0].googleid !== req.session.googleid) {
+            res.status(401).send("Unauthorized access");
+        }
+        next();
+    })
 }
 
 
@@ -24,30 +20,29 @@ function checkTeacher(req, res, next) {
 
 // index
 router.get('/', (req, res, next) => {
-    Teacher.find().exec().catch(dealServerError).then(docs => {
+    Teacher.find().exec().catch(err => { dealServerError(err, res); }).then(docs => {
         res.status(200).send(docs);
     });
 });
 
 // create
 router.post('/', checkSession, checkAuthorized, (req, res, next) => {
-    Teacher.where("googleid", req.session.googleid).exec().catch(dealServerError).then(docs => {
+    Teacher.where("googleid", req.session.googleid).exec().catch(err => { dealServerError(err, res); }).then(docs => {
         if (docs.length !== 0) {
             res.status(400).send("You are already a teacher");
         }
         else {
-            const teacher = new Teacher({ googleid: req.session.googleid, description: req.body.description });
-            teacher.save(err => {
-                dealServerError(err, res);
+            const teacher = new Teacher({ googleid: req.session.googleid, ...req.body });
+            teacher.save().catch(err => { dealServerError(err, res); }).then(docs => {
                 res.status(200).send();
-            })
+            });
         }
     })
 });
 
 // show
 router.get('/:id/', (req, res, next) => {
-    Teacher.where("_id", req.params.id).exec().catch(dealServerError).then(docs => {
+    Teacher.where("_id", req.params.id).exec().catch(err => { dealServerError(err, res); }).then(docs => {
         if (docs.length === 0) {
             res.status(400).send("Teacher unexisted");
         }
@@ -59,7 +54,7 @@ router.get('/:id/', (req, res, next) => {
 
 // edit: cause teacher information is public, no need to check the authorization
 router.get('/:id/edit/', (req, res, next) => {
-    Teacher.where("_id", req.params.id).exec().catch(dealServerError).then(docs => {
+    Teacher.where("_id", req.params.id).exec().catch(err => { dealServerError(err, res); }).then(docs => {
         if (docs.length === 0) {
             res.status(400).send("Teacher unexisted");
         }
@@ -71,7 +66,7 @@ router.get('/:id/edit/', (req, res, next) => {
 
 // update
 router.post('/:id/put/', checkSession, checkTeacher, (req, res, next) => {
-    Teacher.updateOne({ _id: req.params.id }, { description: req.body.description }).exec().catch(dealServerError).then(docs => {
+    Teacher.updateOne({ _id: req.params.id }, req.body).exec().catch(err => { dealServerError(err, res); }).then(docs => {
         if (docs.length === 0) {
             res.status(400).send("Teacher unexisted");
         }
@@ -81,7 +76,7 @@ router.post('/:id/put/', checkSession, checkTeacher, (req, res, next) => {
 
 // destroy
 router.get('/:id/delete/', checkSession, checkTeacher, (req, res, next) => {
-    Teacher.deleteOne({ _id: req.params.id }).catch(dealServerError).then(docs => {
+    Teacher.deleteOne({ _id: req.params.id }).catch(err => { dealServerError(err, res); }).then(docs => {
         res.status(200).send();
     });
 });
