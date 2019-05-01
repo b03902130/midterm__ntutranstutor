@@ -9,11 +9,11 @@ var mongoose = require('mongoose');
 
 // Connect to mongo
 mongoose.connect('mongodb+srv://b03902130:leo19941227@webprog2019-ikmvq.mongodb.net/midterm?retryWrites=true', {
-    useNewUrlParser: true
+	useNewUrlParser: true
 });
 db = mongoose.connection;
 db.on('error', error => {
-    console.log(error)
+	console.log(error)
 });
 
 var authRouter = require("./routes/auth");
@@ -37,7 +37,7 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(session({ secret: "meowmeowmeowmeowmeow", resave: false, saveUninitialized: false, cookie: { maxAge: 60000 } }));
+app.use(session({ secret: "meowmeowmeowmeowmeow", resave: false, saveUninitialized: false }));
 // app.use(express.static(path.join(__dirname, "../frontend/build/")));
 app.use(express.static(path.join(__dirname, "public/")));
 

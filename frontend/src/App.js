@@ -27,12 +27,12 @@ class App extends Component {
             getAxios: (operation, dataHandler) => {
                 Axios.get(renderURI("/axios") + operation)
                     .then(response => { dataHandler(response.data); })
-                    .catch(err => { console.log(err); });
+                    .catch(err => { alert(err); });
             },
             postAxios: (operation, body, dataHandler) => {
                 Axios.post(renderURI("/axios") + operation, body)
                     .then(response => { dataHandler(response.data); })
-                    .catch(err => { console.log(err); });
+                    .catch(err => { alert(err); });
             },
             logout: () => {
                 this.state.getAxios("/logout", data => {
