@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var teacherRouter = require('./teacherRouter');
+var tools = require('./tools');
 
 // mongoose schema
 var Whitelist = require('../models/whitelist');
@@ -19,8 +20,10 @@ router.get('/session', function (req, res, next) {
         });
     }
     else {
-        res.status(200).send({
-            session: req.session
+        tools.refreshSession(req, res, () => {
+            res.status(200).send({
+                session: req.session
+            });
         });
     }
 });
