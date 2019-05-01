@@ -12,32 +12,34 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            session: undefined
+            // data
+            session: undefined,
+
+            // methods
+            getAxios: async (operation) => {
+                const { data } = await Axios.get(renderURI("/axios") + operation);
+                return data;
+            },
+            postAxios: async (operation, body) => {
+                const { data } = await Axios.post(renderURI("/axios") + operation, body);
+                return data;
+            },
+            logout: async () => {
+                await Axios.get(renderURI("/axios/logout"));
+                this.setState({ session: undefined });
+            },
+            updateSession: async () => {
+                const { data } = await Axios.get(renderURI("/axios/session"));
+                this.setState({ session: data.session });
+            },
+            callback: async (handler) => {
+                handler(this);
+            }
         };
     }
 
     async componentDidMount() {
-        this.refresh();
-    }
-
-    // tool function used to test the session status
-    async getAxios(operation) {
-        const { data } = await Axios.get(renderURI("/axios/") + operation);
-        console.log(data);
-    }
-    async postAxios(operation) {
-        const { data } = await Axios.post(renderURI("/axios/") + operation);
-        console.log(data);
-    }
-
-    logout = async () => {
-        await Axios.get(renderURI("/axios/logout"));
-        this.setState({ session: undefined });
-    }
-
-    refresh = async () => {
-        const { data } = await Axios.get(renderURI("/axios/session"));
-        this.setState({ session: data.session });
+        this.state.updateSession();
     }
 
     render() {
@@ -45,8 +47,8 @@ class App extends Component {
             <div className="App">
                 <BrowserRouter>
                     <div>
-                        <Navigator session={this.state.session} testSession={() => { this.getAxios("connection") }} logout={this.logout} />
-                        <Content session={this.state.session} refresh={this.refresh} />
+                        <Navigator app={this.state} />
+                        <Content app={this.state} />
                     </div>
                 </BrowserRouter>
             </div>

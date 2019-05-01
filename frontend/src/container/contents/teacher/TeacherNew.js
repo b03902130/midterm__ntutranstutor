@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Redirect } from 'react-router-dom';
-import renderURI from '../../../renderURI';
 
 import Axios from 'axios'
 Axios.defaults.withCredentials = true
@@ -23,14 +22,10 @@ class TeacherNew extends Component {
             alert("You must fillout description to become a teacher");
         }
         else {
-            await Axios.post(renderURI("/axios/teachers"), { description: this.state.description })
-                .catch((error) => {
-                    if (error.response) {
-                        alert(error.response.data);
-                    }
-                });
-            this.props.refresh();
+            await this.props.app.postAxios("/teachers", { description: this.state.description })
+                .catch(err => console.log(err));
             this.setState({ submitted: true });
+            this.props.app.updateSession();
         }
     }
 
@@ -38,11 +33,11 @@ class TeacherNew extends Component {
         return (
             <div>
                 {
-                    !this.props.session || this.props.session.identity === "outsider" ?
+                    !this.props.app.session || this.props.app.session.identity === "outsider" ?
                         <Redirect to="/" />
                         :
                         this.state.submitted ?
-                            <Redirect to={`/teachers/${this.props.session.teacherid}`} />
+                            <Redirect to={`/teachers/${this.props.app.session.teacherid}`} />
                             :
                             <div className="TeacherForm">
                                 <div>

@@ -13,11 +13,11 @@ class TeacherController extends Component {
                 <Switch>
                     <Route exact path={`${this.props.match.path}/`} component={Teachers} />
                     <Route exact path={`${this.props.match.path}/new`} render={(props) => {
-                        return <TeacherNew {...props} session={this.props.session} refresh={this.props.refresh} />
+                        return <TeacherNew {...this.props} {...props} />
                     }} />
                     <Route exact path={`${this.props.match.path}/:id`} component={Teacher} />
                     <Route exact path={`${this.props.match.path}/:id/edit`} render={(props) => {
-                        return <TeacherEdit {...props} session={this.props.session} refresh={this.props.refresh} />
+                        return <TeacherEdit {...this.props} {...props} />
                     }} />
                 </Switch>
             </div>

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Redirect } from 'react-router-dom';
-import renderURI from '../../../renderURI';
 
 import Axios from 'axios'
 Axios.defaults.withCredentials = true
@@ -15,7 +14,8 @@ class TeacherEdit extends Component {
     }
 
     async componentDidMount() {
-        const { data } = await Axios.get(renderURI("/axios/teachers/" + this.props.match.params.id));
+        const data = await this.props.app.getAxios("/teachers/" + this.props.match.params.id)
+            .catch(err => console.log(err));
         this.setState({ description: data.description });
     }
 
@@ -24,31 +24,23 @@ class TeacherEdit extends Component {
     }
 
     submit = async () => {
-        await Axios.post(renderURI("/axios/teachers/" + this.props.match.params.id + "/put"), { description: this.state.description })
-            .catch((error) => {
-                if (error.response) {
-                    alert(error.response.data);
-                }
-            });
+        await this.props.app.postAxios("/teachers/" + this.props.match.params.id + "/put", { description: this.state.description })
+            .catch(err => console.log(err));
         this.setState({ submitted: true });
     }
 
     delete = async () => {
-        await Axios.post(renderURI("/axios/teachers/" + this.props.match.params.id + "/delete"))
-            .catch((error) => {
-                if (error.response) {
-                    alert(error.response.data);
-                }
-            });
+        await this.props.app.postAxios("/teachers/" + this.props.match.params.id + "/delete")
+            .catch(err => console.log(err));
         this.setState({ submitted: true });
-        this.props.refresh();
+        this.props.app.updateSession();
     }
 
     render() {
         return (
             <div>
                 {
-                    !this.props.session || this.props.session.identity === "outsider" ?
+                    !this.props.app.session || this.props.app.session.identity === "outsider" ?
                         <Redirect to="/" />
                         :
                         this.state.submitted ?
