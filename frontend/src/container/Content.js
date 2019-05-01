@@ -12,7 +12,7 @@ class Content extends Component {
                 <Switch>
                     <Route exact path="/" component={Home} />
                     <Route path="/teachers" render={(props) => {
-                        return <TeacherController {...props}  {...this.props} />
+                        return <TeacherController {...this.props} {...props} />
                     }} />
                     <Route path="/about" component={About} />
                     <Redirect to="/" />

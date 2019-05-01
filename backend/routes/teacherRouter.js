@@ -58,7 +58,7 @@ router.post('/:id/put/', checkSession, checkTeacher, (req, res, next) => {
         });
 });
 
-router.post('/:id/delete/', checkSession, checkTeacher, (req, res, next) => {
+router.get('/:id/delete/', checkSession, checkTeacher, (req, res, next) => {
     Teacher.deleteOne({ _id: req.params.id }, (err) => {
         dealServerError(err, res);
         res.status(200).send();

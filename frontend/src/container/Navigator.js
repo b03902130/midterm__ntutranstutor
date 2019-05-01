@@ -34,11 +34,10 @@ class Navigator extends Component {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
                         <Nav.Link><NavLink exact to="/teachers" style={this.linkstyle} activeStyle={this.activeStyle}>教師</NavLink></Nav.Link>
-                        <Nav.Link><NavLink exact to="/subjects" style={this.linkstyle} activeStyle={this.activeStyle}>科目</NavLink></Nav.Link>
                         <Nav.Link><NavLink exact to="/about" style={this.linkstyle} activeStyle={this.activeStyle}>關於</NavLink></Nav.Link>
                     </Nav>
                     <Nav className="justify-content-end">
-                        <Nav.Link onClick={() => {console.log(this.props.app.getAxios("connection"))}}>連線狀態</Nav.Link>
+                        <Nav.Link onClick={() => {this.props.app.getAxios("/connection", console.log)}}>連線狀態</Nav.Link>
                         {
                             !this.props.app.session ? <Nav.Link href={renderURI("/auth/google")}>登入（powered by Google）</Nav.Link> :
                                 <NavDropdown title={this.props.app.session.username} id="basic-nav-dropdown" alignRight  >

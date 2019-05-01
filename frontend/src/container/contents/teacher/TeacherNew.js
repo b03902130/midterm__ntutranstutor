@@ -22,10 +22,10 @@ class TeacherNew extends Component {
             alert("You must fillout description to become a teacher");
         }
         else {
-            await this.props.app.postAxios("/teachers", { description: this.state.description })
-                .catch(err => console.log(err));
-            this.setState({ submitted: true });
-            this.props.app.updateSession();
+            this.props.app.postAxios("/teachers", { description: this.state.description }, data => {
+                this.setState({ submitted: true });
+                this.props.app.updateSession();
+            });
         }
     }
 

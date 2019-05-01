@@ -13,10 +13,10 @@ class TeacherEdit extends Component {
         }
     }
 
-    async componentDidMount() {
-        const data = await this.props.app.getAxios("/teachers/" + this.props.match.params.id)
-            .catch(err => console.log(err));
-        this.setState({ description: data.description });
+    componentDidMount = async () => {
+        this.props.app.getAxios("/teachers/" + this.props.match.params.id, data => {
+            this.setState({ description: data.description });
+        });
     }
 
     change = (e) => {
@@ -24,16 +24,16 @@ class TeacherEdit extends Component {
     }
 
     submit = async () => {
-        await this.props.app.postAxios("/teachers/" + this.props.match.params.id + "/put", { description: this.state.description })
-            .catch(err => console.log(err));
-        this.setState({ submitted: true });
+        this.props.app.postAxios("/teachers/" + this.props.match.params.id + "/put", { description: this.state.description }, data => {
+            this.setState({ submitted: true });
+        });
     }
 
     delete = async () => {
-        await this.props.app.postAxios("/teachers/" + this.props.match.params.id + "/delete")
-            .catch(err => console.log(err));
-        this.setState({ submitted: true });
-        this.props.app.updateSession();
+        this.props.app.getAxios("/teachers/" + this.props.match.params.id + "/delete", data => {
+            this.setState({ submitted: true });
+            this.props.app.updateSession();
+        });
     }
 
     render() {

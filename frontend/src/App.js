@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import renderURI from './renderURI';
 import { BrowserRouter } from 'react-router-dom';
 
+import renderURI from './renderURI';
 import Content from './container/Content';
 import Navigator from "./container/Navigator";
 
@@ -15,22 +15,26 @@ class App extends Component {
             // data
             session: undefined,
 
-            // methods
-            getAxios: async (operation) => {
-                const { data } = await Axios.get(renderURI("/axios") + operation);
-                return data;
+            //  methods
+            getAxios: (operation, dataHandler) => {
+                Axios.get(renderURI("/axios") + operation)
+                    .then(response => { dataHandler(response.data); })
+                    .catch(err => { console.log(err); });
             },
-            postAxios: async (operation, body) => {
-                const { data } = await Axios.post(renderURI("/axios") + operation, body);
-                return data;
+            postAxios: (operation, body, dataHandler) => {
+                Axios.post(renderURI("/axios") + operation, body)
+                    .then(response => { dataHandler(response.data); })
+                    .catch(err => { console.log(err); });
             },
-            logout: async () => {
-                await Axios.get(renderURI("/axios/logout"));
-                this.setState({ session: undefined });
+            logout: () => {
+                this.state.getAxios("/logout", data => {
+                    this.setState({ session: undefined });
+                });
             },
-            updateSession: async () => {
-                const { data } = await Axios.get(renderURI("/axios/session"));
-                this.setState({ session: data.session });
+            updateSession: () => {
+                this.state.getAxios("/session", data => {
+                    this.setState({ session: data.session });
+                });
             },
             callback: async (handler) => {
                 handler(this);
@@ -38,7 +42,7 @@ class App extends Component {
         };
     }
 
-    async componentDidMount() {
+    componentDidMount() {
         this.state.updateSession();
     }
 
