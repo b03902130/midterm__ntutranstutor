@@ -1,0 +1,1 @@
+Implement 6 routing operations of RESTFUL API with only GET and POST.

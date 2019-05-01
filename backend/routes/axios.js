@@ -28,12 +28,6 @@ router.get('/session', function (req, res, next) {
     }
 });
 
-router.use("/teachers", teacherRouter);
-
-
-
-// FOR TESTING
-
 router.get('/connection', function (req, res, next) {
     if (!req.session.googleid) {
         res.send(false);
@@ -42,5 +36,8 @@ router.get('/connection', function (req, res, next) {
         res.send(true);
     }
 });
+
+router.use("/teachers", teacherRouter);
+
 
 module.exports = router;

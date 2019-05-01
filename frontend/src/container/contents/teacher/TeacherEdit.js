@@ -13,8 +13,8 @@ class TeacherEdit extends Component {
         }
     }
 
-    componentDidMount = async () => {
-        this.props.app.getAxios("/teachers/" + this.props.match.params.id, data => {
+    componentDidMount() {
+        this.props.app.getAxios("/teachers/" + this.props.match.params.id + "/edit", data => {
             this.setState({ description: data.description });
         });
     }
