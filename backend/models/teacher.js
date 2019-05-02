@@ -7,10 +7,6 @@ const TeacherSchema = new Schema({
         type: String,
         required: [true, 'googleid field is required.']
     },
-    gmail: {
-        type: String,
-        required: [true, 'gmail field is required.']
-    },
     name: {
         type: String,
         required: [true, 'name field is required.']

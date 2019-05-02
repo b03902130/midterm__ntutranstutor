@@ -10,7 +10,6 @@ class TeacherEdit extends Component {
         this.state = {
             info: {
                 name: "",
-                gmail: "",
                 imgurl: "",
                 description: "",
             },
@@ -59,10 +58,6 @@ class TeacherEdit extends Component {
                                 <div>
                                     <label htmlFor="teacher_name">教師名稱</label>
                                     <input id="teacher_name" value={this.state.info.name} onChange={this.change} />
-                                </div>
-                                <div>
-                                    <label htmlFor="teacher_email">認證Gmail</label>
-                                    <input id="teacher_email" value={this.state.info.gmail} onChange={this.change} />
                                 </div>
                                 <div>
                                     <label htmlFor="teacher_description">個人介紹</label>
