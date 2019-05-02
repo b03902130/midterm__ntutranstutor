@@ -22,7 +22,7 @@ module.exports = {
     },
     refreshSession: function (req, res, next) {
         let criteria = req.session.emails.map(email => {
-            return { email: email.value };
+            return { email: email };
         });
         let identity = "outsider";
         Whitelist.find({ $or: criteria }, (err, docs) => {
@@ -42,14 +42,14 @@ module.exports = {
     },
     getInputChecker: function (model) {
         function checkInputModel(req, res, next) {
-            let input = req.body;
+            let input = req.body.data;
             let sanitized = {};
             Object.keys(model.schema.obj).forEach(field => {
                 if (input[field]) {
                     sanitized[field] = input[field];
                 }
             });
-            req.body = sanitized;
+            req.body.data = sanitized;
             next()
         }
         return checkInputModel;

@@ -29,8 +29,8 @@ class App extends Component {
                     .then(response => { dataHandler(response.data); })
                     .catch(err => { alert(err); });
             },
-            postAxios: (operation, body, dataHandler) => {
-                Axios.post(renderURI("/axios") + operation, body)
+            postAxios: (operation, data, dataHandler) => {
+                Axios.post(renderURI("/axios") + operation, { data: data })
                     .then(response => { dataHandler(response.data); })
                     .catch(err => { alert(err); });
             },

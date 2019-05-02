@@ -34,7 +34,7 @@ router.post('/', checkSession, checkAuthorized, checkInputTeacher, (req, res, ne
             res.status(400).send("You are already a teacher");
         }
         else {
-            const teacher = new Teacher({ googleid: req.session.googleid, ...req.body });
+            const teacher = new Teacher({ googleid: req.session.googleid, ...req.body.data });
             teacher.save().catch(err => { dealServerError(err, res); }).then(docs => {
                 res.status(200).send();
             });
@@ -68,7 +68,7 @@ router.get('/:id/edit/', (req, res, next) => {
 
 // update
 router.post('/:id/put/', checkSession, checkTeacher, checkInputTeacher, (req, res, next) => {
-    Teacher.updateOne({ _id: req.params.id }, req.body).exec().catch(err => { dealServerError(err, res); }).then(docs => {
+    Teacher.updateOne({ _id: req.params.id }, req.body.data).exec().catch(err => { dealServerError(err, res); }).then(docs => {
         if (docs.length === 0) {
             res.status(400).send("Teacher unexisted");
         }

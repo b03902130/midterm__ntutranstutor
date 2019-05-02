@@ -25,7 +25,7 @@ router.get(
 		req.session.googleid = data.id;
 		req.session.name = data.displayName;
 		req.session.imgurl = data.image.url;
-		req.session.emails = data.emails;  // an array, each element is an object: {value, type}
+		req.session.emails = data.emails.map(email => email.value);  // an array, each element is an object: {value, type}
 
 		tools.refreshSession(req, res, () => {
 			res.redirect("http://localhost:3000/");
