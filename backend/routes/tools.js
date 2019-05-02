@@ -22,22 +22,23 @@ module.exports = {
     },
     refreshSession: function (req, res, next) {
         let criteria = req.session.emails.map(email => {
-            return { email: email };
+            return { gmail: email };
         });
         let identity = "outsider";
         Whitelist.find({ $or: criteria }, (err, docs) => {
             if (docs.length !== 0) {
                 identity = "candidate";
+                Teacher.where("googleid", req.session.googleid).exec((err, docs) => {
+                    req.session.teacherid = undefined;
+                    if (docs.length !== 0) {
+                        identity = "teacher";
+                        req.session.teacherid = docs[0]._id;
+                    }
+                    req.session.identity = identity;
+                    next();
+                });
             }
-            Teacher.where("googleid", req.session.googleid).exec((err, docs) => {
-                req.session.teacherid = undefined;
-                if (docs.length !== 0) {
-                    identity = "teacher";
-                    req.session.teacherid = docs[0]._id;
-                }
-                req.session.identity = identity;
-                next();
-            });
+            else { next(); }
         });
     },
     getInputChecker: function (model) {

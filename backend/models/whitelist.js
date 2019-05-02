@@ -11,7 +11,7 @@ const WhitelistSchema = new Schema({
 		type: String,
 		required: [true, 'schoolid field is required.']
 	},
-	email: {
+	gmail: {
 		type: String,
 		required: [true, 'email field is required.']
 	},
