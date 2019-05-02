@@ -27,7 +27,13 @@ fs.readdir("./insertDriver/", (err, items) => {
         console.log(err);
     }
     else {
-        let drivers = items.map(item => require(`./insertDriver/${item}`));
+        let filterd = []
+        for(item of items) {
+            if (item.slice(-2) === "js") {
+                filterd.push(item)
+            }
+        }
+        let drivers = filterd.map(item => require(`./insertDriver/${item}`));
         dealDriver(drivers);
     }
 })

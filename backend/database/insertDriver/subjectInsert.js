@@ -1,0 +1,17 @@
+var fs = require('fs');
+var path = require('path');
+var Subject = require(path.join(__dirname, '../../models/subject'));
+
+var subjects = fs.readFileSync(path.join(__dirname, 'subjects.txt')).toString().split("\n");
+subjects = subjects.map(subject => {
+    if (subject[subject.length - 1] === "\r") {
+        return subject.slice(0, -1);
+    }
+    return subject;
+});
+subjects = subjects.map(subject => { return { name: subject }; });
+
+module.exports = {
+    Model: Subject,
+    entries: subjects
+};
