@@ -11,7 +11,9 @@ class TeacherController extends Component {
         return (
             <div className="TeacherController">
                 <Switch>
-                    <Route exact path={`${this.props.match.path}/`} component={Teachers} />
+                    <Route exact path={`${this.props.match.path}/`} render={(props) => {
+                        return <Teachers {...this.props} {...props} />
+                    }} />
                     <Route exact path={`${this.props.match.path}/new`} render={(props) => {
                         return <TeacherNew {...this.props} {...props} />
                     }} />

@@ -12,6 +12,9 @@ class Teachers extends Component {
     }
 
     componentDidMount() {
+        this.props.app.getAxios("/teachers", data => {
+            console.log(data);
+        });
     }
 
     render() {

@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var { checkSession, checkAuthorized, dealServerError } = require('./tools');
+var { checkSession, checkAuthorized, dealServerError, getInputChecker } = require('./tools');
 
 // mongoose schema
 var Teacher = require('../models/teacher');
@@ -15,6 +15,8 @@ function checkTeacher(req, res, next) {
     })
 }
 
+// check if the input browser is valid according to Teacher schema
+var checkInputTeacher = getInputChecker(Teacher);
 
 // RESTFUL API
 
@@ -26,7 +28,7 @@ router.get('/', (req, res, next) => {
 });
 
 // create
-router.post('/', checkSession, checkAuthorized, (req, res, next) => {
+router.post('/', checkSession, checkAuthorized, checkInputTeacher, (req, res, next) => {
     Teacher.where("googleid", req.session.googleid).exec().catch(err => { dealServerError(err, res); }).then(docs => {
         if (docs.length !== 0) {
             res.status(400).send("You are already a teacher");
@@ -65,7 +67,7 @@ router.get('/:id/edit/', (req, res, next) => {
 });
 
 // update
-router.post('/:id/put/', checkSession, checkTeacher, (req, res, next) => {
+router.post('/:id/put/', checkSession, checkTeacher, checkInputTeacher, (req, res, next) => {
     Teacher.updateOne({ _id: req.params.id }, req.body).exec().catch(err => { dealServerError(err, res); }).then(docs => {
         if (docs.length === 0) {
             res.status(400).send("Teacher unexisted");

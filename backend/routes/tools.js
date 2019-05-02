@@ -39,5 +39,19 @@ module.exports = {
                 next();
             });
         });
+    },
+    getInputChecker: function (model) {
+        function checkInputModel(req, res, next) {
+            let input = req.body;
+            let sanitized = {};
+            Object.keys(model.schema.obj).forEach(field => {
+                if (input[field]) {
+                    sanitized[field] = input[field];
+                }
+            });
+            req.body = sanitized;
+            next()
+        }
+        return checkInputModel;
     }
 };
