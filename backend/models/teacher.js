@@ -5,7 +5,6 @@ const Schema = mongoose.Schema
 const TeacherSchema = new Schema({
     googleid: {
         type: String,
-        required: [true, 'googleid field is required.']
     },
     name: {
         type: String,

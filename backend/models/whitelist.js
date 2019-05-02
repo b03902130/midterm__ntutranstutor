@@ -3,13 +3,21 @@ const Schema = mongoose.Schema
 
 // Creating a schema, sort of like working with an ORM
 const WhitelistSchema = new Schema({
+	name: {
+		type: String,
+		required: [true, 'name field is required.']
+	},
+	schoolid: {
+		type: String,
+		required: [true, 'schoolid field is required.']
+	},
 	email: {
 		type: String,
-		required: [true, 'Email field is required.']
+		required: [true, 'email field is required.']
 	},
 	facebook: {
 		type: String,
-		required: [true, 'Facebook field is required.']
+		required: [true, 'facebook field is required.']
 	},
 })
 

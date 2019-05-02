@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "SET DEBUG=react-nodejs-passport-server:* & nodemon --inspect ./bin/www"
+    "start": "SET DEBUG=react-nodejs-passport-server:* & nodemon --inspect=5001 ./bin/www"
   },
   "dependencies": {
     "axios": "^0.18.0",

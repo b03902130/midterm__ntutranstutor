@@ -10,7 +10,7 @@ const SubjectSchema = new Schema({
 })
 
 // Creating a table within database with the defined schema
-const Subject = mongoose.model('course', SubjectSchema)
+const Subject = mongoose.model('subject', SubjectSchema)
 
 // Exporting table for querying and mutating
 module.exports = Subject
