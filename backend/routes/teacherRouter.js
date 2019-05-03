@@ -41,11 +41,27 @@ function organizeInputTeacher(req, res, next) {
     next()
 }
 
+function organizeOutputTeacher(docsFromDatabase) {
+    let docs = docsFromDatabase;
+    docs = docs.map(doc => {
+        return {
+            name: doc.name,
+            department: departmentOptions[doc.departmentid],
+            imgurl: doc.imgurl,
+            description: doc.description
+        }
+    });
+    return docs;
+}
+
+
+
 // RESTFUL API
 
 // index
 router.get('/', (req, res, next) => {
     Teacher.find().exec().catch(err => { dealServerError(err, res); }).then(docs => {
+        docs = organizeOutputTeacher(docs);
         res.status(200).send(docs);
     });
 });
@@ -68,6 +84,7 @@ router.post('/', checkSession, checkAuthorized, organizeInputTeacher, (req, res,
 // show
 router.get('/:id/', (req, res, next) => {
     Teacher.where("_id", req.params.id).exec().catch(err => { dealServerError(err, res); }).then(docs => {
+        docs = organizeOutputTeacher(docs);
         if (docs.length === 0) {
             res.status(400).send("Teacher unexisted");
         }
@@ -80,6 +97,7 @@ router.get('/:id/', (req, res, next) => {
 // edit: cause teacher information is public, no need to check the authorization
 router.get('/:id/edit/', (req, res, next) => {
     Teacher.where("_id", req.params.id).exec().catch(err => { dealServerError(err, res); }).then(docs => {
+        docs = organizeOutputTeacher(docs);
         if (docs.length === 0) {
             res.status(400).send("Teacher unexisted");
         }
