@@ -32,7 +32,7 @@ module.exports = {
                     req.session.teacherid = undefined;
                     if (docs.length !== 0) {
                         identity = "teacher";
-                        req.session.teacherid = docs[0]._id;
+                        req.session.teacherid = docs[0].id;
                     }
                     req.session.identity = identity;
                     next();
@@ -41,18 +41,4 @@ module.exports = {
             else { next(); }
         });
     },
-    getInputChecker: function (model) {
-        function checkInputModel(req, res, next) {
-            let input = req.body.data;
-            let sanitized = {};
-            Object.keys(model.schema.obj).forEach(field => {
-                if (input[field]) {
-                    sanitized[field] = input[field];
-                }
-            });
-            req.body.data = sanitized;
-            next()
-        }
-        return checkInputModel;
-    }
 };

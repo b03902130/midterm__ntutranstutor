@@ -12,7 +12,7 @@ const TeacherSchema = new Schema({
     },
     departmentid: {
         type: String,
-        required: [true, 'department field is required.']
+        required: [true, 'departmentid field is required.']
     },
     imgurl: {
         type: String,

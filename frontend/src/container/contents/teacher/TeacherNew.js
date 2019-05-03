@@ -10,6 +10,7 @@ class TeacherNew extends Component {
         this.state = {
             info: {
                 name: this.props.app.name,
+                department: "物理學系",
                 imgurl: this.props.app.imgurl,
                 description: ""
             },

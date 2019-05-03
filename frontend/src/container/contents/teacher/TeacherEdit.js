@@ -10,6 +10,7 @@ class TeacherEdit extends Component {
         this.state = {
             info: {
                 name: "",
+                department: "物理學系",
                 imgurl: "",
                 description: "",
             },

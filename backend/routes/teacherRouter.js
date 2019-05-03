@@ -1,22 +1,45 @@
 var express = require('express');
+var mongoose = require('mongoose');
 var router = express.Router();
-var { checkSession, checkAuthorized, dealServerError, getInputChecker } = require('./tools');
+var { checkSession, checkAuthorized, dealServerError } = require('./tools');
 
 // mongoose schema
 var Teacher = require('../models/teacher');
+var Department = require('../models/department');
+
+var departmentOptions = {}
+Department.find().exec().catch(err => { dealServerError(err, res); }).then(docs => {
+    docs.forEach(doc => {
+        departmentOptions[doc.name] = doc.id;
+    });
+});
 
 // check if the user has privilege to modifiy teacher information
-function checkTeacher(req, res, next) {
-    Teacher.where("_id", req.params.id).exec().catch(err => { dealServerError(err, res); }).then(docs => {
-        if (docs.length === 0 || docs[0].googleid !== req.session.googleid) {
-            res.status(401).send("Unauthorized access");
-        }
-        next();
-    })
+function checkTeacherId(req, res, next) {
+    if (!req.session.teacherid || req.params.id !== req.session.teacherid) {
+        res.status(401).send("Unauthorized access");
+    }
+    next()
 }
 
-// check if the input browser is valid according to Teacher schema
-var checkInputTeacher = getInputChecker(Teacher);
+// Organize browser input to fit Teacher schema
+function organizeInputTeacher(req, res, next) {
+    let input = req.body.data;
+    if (!input) {
+        res.status(404).send("No data received");
+    }
+    if (input.department) {
+        input.departmentid = departmentOptions[input.department];
+    }
+    let sanitized = {};
+    Object.keys(Teacher.schema.obj).forEach(field => {
+        if (input[field]) {
+            sanitized[field] = input[field];
+        }
+    });
+    req.body.data = sanitized;
+    next()
+}
 
 // RESTFUL API
 
@@ -28,7 +51,7 @@ router.get('/', (req, res, next) => {
 });
 
 // create
-router.post('/', checkSession, checkAuthorized, checkInputTeacher, (req, res, next) => {
+router.post('/', checkSession, checkAuthorized, organizeInputTeacher, (req, res, next) => {
     Teacher.where("googleid", req.session.googleid).exec().catch(err => { dealServerError(err, res); }).then(docs => {
         if (docs.length !== 0) {
             res.status(400).send("You are already a teacher");
@@ -67,7 +90,7 @@ router.get('/:id/edit/', (req, res, next) => {
 });
 
 // update
-router.post('/:id/put/', checkSession, checkTeacher, checkInputTeacher, (req, res, next) => {
+router.post('/:id/put/', checkSession, checkTeacherId, organizeInputTeacher, (req, res, next) => {
     Teacher.updateOne({ _id: req.params.id }, req.body.data).exec().catch(err => { dealServerError(err, res); }).then(docs => {
         if (docs.length === 0) {
             res.status(400).send("Teacher unexisted");
@@ -77,7 +100,7 @@ router.post('/:id/put/', checkSession, checkTeacher, checkInputTeacher, (req, re
 });
 
 // destroy
-router.get('/:id/delete/', checkSession, checkTeacher, (req, res, next) => {
+router.get('/:id/delete/', checkSession, checkTeacherId, (req, res, next) => {
     Teacher.deleteOne({ _id: req.params.id }).catch(err => { dealServerError(err, res); }).then(docs => {
         res.status(200).send();
     });

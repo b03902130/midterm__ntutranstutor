@@ -17,7 +17,9 @@ class TeacherController extends Component {
                     <Route exact path={`${this.props.match.path}/new`} render={(props) => {
                         return <TeacherNew {...this.props} {...props} />
                     }} />
-                    <Route exact path={`${this.props.match.path}/:id`} component={Teacher} />
+                    <Route exact path={`${this.props.match.path}/:id`} render={(props) => {
+                        return <Teacher {...this.props} {...props} />
+                    }} />
                     <Route exact path={`${this.props.match.path}/:id/edit`} render={(props) => {
                         return <TeacherEdit {...this.props} {...props} />
                     }} />
