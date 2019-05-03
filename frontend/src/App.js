@@ -47,7 +47,7 @@ class App extends Component {
             },
             updateSession: () => {
                 this.state.getAxios("/session", data => {
-                    this.setState({ ...data });
+                    this.setState({ ...data.session });
                 });
             },
             callback: async (handler) => {

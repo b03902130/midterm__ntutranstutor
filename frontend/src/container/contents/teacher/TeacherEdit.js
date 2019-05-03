@@ -20,7 +20,7 @@ class TeacherEdit extends Component {
 
     componentDidMount() {
         this.props.app.getAxios("/teachers/" + this.props.match.params.id + "/edit", data => {
-            this.setState({ info: data });
+            this.setState({ info: data.info });
         });
     }
 

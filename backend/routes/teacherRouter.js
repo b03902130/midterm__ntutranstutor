@@ -54,7 +54,7 @@ function organizeOutputTeacher(docsFromDatabase, req) {
 router.get('/', (req, res, next) => {
     Teacher.find().exec().catch(err => { dealServerError(err, res); }).then(docs => {
         docs = organizeOutputTeacher(docs, req);
-        res.status(200).send(docs);
+        res.status(200).send({ infos: docs });
     });
 });
 
@@ -81,7 +81,7 @@ router.get('/:id/', (req, res, next) => {
             res.status(400).send("Teacher unexisted");
         }
         else {
-            res.status(200).send(docs[0]);
+            res.status(200).send({ info: docs[0] });
         }
     });
 });
@@ -94,7 +94,7 @@ router.get('/:id/edit/', (req, res, next) => {
             res.status(400).send("Teacher unexisted");
         }
         else {
-            res.status(200).send(docs[0]);
+            res.status(200).send({ info: docs[0] });
         }
     });
 });
