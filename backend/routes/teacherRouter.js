@@ -5,14 +5,6 @@ var { checkSession, checkAuthorized, dealServerError } = require('./tools');
 
 // mongoose schema
 var Teacher = require('../models/teacher');
-var Department = require('../models/department');
-
-var departmentOptions = {}
-Department.find().exec().catch(err => { dealServerError(err, res); }).then(docs => {
-    docs.forEach(doc => {
-        departmentOptions[doc.name] = doc.id;
-    });
-});
 
 // check if the user has privilege to modifiy teacher information
 function checkTeacherId(req, res, next) {
@@ -29,7 +21,7 @@ function organizeInputTeacher(req, res, next) {
         res.status(404).send("No data received");
     }
     if (input.department) {
-        input.departmentid = departmentOptions[input.department];
+        input.departmentid = req.session.departmentOptions[input.department];
     }
     let sanitized = {};
     Object.keys(Teacher.schema.obj).forEach(field => {
@@ -41,12 +33,12 @@ function organizeInputTeacher(req, res, next) {
     next()
 }
 
-function organizeOutputTeacher(docsFromDatabase) {
+function organizeOutputTeacher(docsFromDatabase, req) {
     let docs = docsFromDatabase;
     docs = docs.map(doc => {
         return {
             name: doc.name,
-            department: departmentOptions[doc.departmentid],
+            department: req.session.departmentOptions[doc.departmentid],
             imgurl: doc.imgurl,
             description: doc.description
         }
@@ -61,7 +53,7 @@ function organizeOutputTeacher(docsFromDatabase) {
 // index
 router.get('/', (req, res, next) => {
     Teacher.find().exec().catch(err => { dealServerError(err, res); }).then(docs => {
-        docs = organizeOutputTeacher(docs);
+        docs = organizeOutputTeacher(docs, req);
         res.status(200).send(docs);
     });
 });
@@ -84,7 +76,7 @@ router.post('/', checkSession, checkAuthorized, organizeInputTeacher, (req, res,
 // show
 router.get('/:id/', (req, res, next) => {
     Teacher.where("_id", req.params.id).exec().catch(err => { dealServerError(err, res); }).then(docs => {
-        docs = organizeOutputTeacher(docs);
+        docs = organizeOutputTeacher(docs, req);
         if (docs.length === 0) {
             res.status(400).send("Teacher unexisted");
         }
@@ -97,7 +89,7 @@ router.get('/:id/', (req, res, next) => {
 // edit: cause teacher information is public, no need to check the authorization
 router.get('/:id/edit/', (req, res, next) => {
     Teacher.where("_id", req.params.id).exec().catch(err => { dealServerError(err, res); }).then(docs => {
-        docs = organizeOutputTeacher(docs);
+        docs = organizeOutputTeacher(docs, req);
         if (docs.length === 0) {
             res.status(400).send("Teacher unexisted");
         }
