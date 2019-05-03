@@ -1,0 +1,17 @@
+var fs = require('fs');
+var path = require('path');
+var Department = require(path.join(__dirname, '../../models/department'));
+
+var departments = fs.readFileSync(path.join(__dirname, 'departments.txt')).toString().split("\n");
+departments = departments.map(department => {
+    if (department[department.length - 1] === "\r") {
+        return department.slice(0, -1);
+    }
+    return department;
+});
+departments = departments.map(department => { return { name: department }; });
+
+module.exports = {
+    Model: Department,
+    entries: departments
+};
