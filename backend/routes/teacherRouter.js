@@ -21,7 +21,7 @@ function organizeInputTeacher(req, res, next) {
         res.status(404).send("No data received");
     }
     if (input.department) {
-        input.departmentid = req.session.departmentOptions[input.department];
+        input.departmentid = req.session.departmentInfo.name2id[input.department];
     }
     let sanitized = {};
     Object.keys(Teacher.schema.obj).forEach(field => {
@@ -38,7 +38,7 @@ function organizeOutputTeacher(docsFromDatabase, req) {
     docs = docs.map(doc => {
         return {
             name: doc.name,
-            department: req.session.departmentOptions[doc.departmentid],
+            department: req.session.departmentInfo.id2name[doc.departmentid],
             imgurl: doc.imgurl,
             description: doc.description
         }

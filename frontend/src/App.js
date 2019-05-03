@@ -18,6 +18,8 @@ class App extends Component {
             emails: "",
             identity: "",
             teacherid: "",
+            departmentInfo: "",
+            subjectInfo: ""
         }
         this.state = {
             // data

@@ -8,21 +8,6 @@ var Whitelist = require('../models/whitelist');
 var Teacher = require('../models/teacher');
 var tools = require('./tools');
 
-var Department = require('../models/department');
-var departmentOptions = {};
-Department.find().exec().catch(err => { dealServerError(err, res); }).then(docs => {
-	docs.forEach(doc => {
-		departmentOptions[doc.name] = doc.id;
-	});
-});
-
-var Subject = require('../models/subject');
-var subjectOptions = {};
-Subject.find().exec().catch(err => { dealServerError(err, res); }).then(docs => {
-	docs.forEach(doc => {
-		subjectOptions[doc.name] = doc.id;
-	});
-});
 
 /* GET Google Authentication API. */
 router.get(
@@ -42,8 +27,6 @@ router.get(
 		req.session.name = data.displayName;
 		req.session.imgurl = data.image.url;
 		req.session.emails = data.emails.map(email => email.value);  // an array, each element is an object: {value, type}
-		req.session.departmentOptions = departmentOptions;
-		req.session.subjectOptions = subjectOptions;
 
 		tools.refreshSession(req, res, () => {
 			res.redirect("http://localhost:3000/");
