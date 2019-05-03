@@ -10,6 +10,10 @@ const TeacherSchema = new Schema({
         type: String,
         required: [true, 'name field is required.']
     },
+    departmentid: {
+        type: String,
+        required: [true, 'department field is required.']
+    },
     imgurl: {
         type: String,
         required: [true, 'imgurl field is required.']
