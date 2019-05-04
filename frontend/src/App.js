@@ -55,7 +55,6 @@ class App extends Component {
             logout: () => {
                 this.state.getAxios("/logout", data => {
                     this.setState(this.initial);
-                    this.state.updateSession();
                 });
             },
             updateSession: () => {
