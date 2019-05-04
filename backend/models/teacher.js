@@ -11,7 +11,7 @@ const TeacherSchema = new Schema({
         required: [true, 'name field is required.']
     },
     departmentid: {
-        type: String,
+        type: Schema.Types.ObjectId,
         required: [true, 'departmentid field is required.']
     },
     imgurl: {

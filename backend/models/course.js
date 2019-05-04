@@ -4,11 +4,11 @@ const Schema = mongoose.Schema
 // Creating a schema, sort of like working with an ORM
 const CourseSchema = new Schema({
     teacherid: {
-        type: String,
+        type: Schema.Types.ObjectId,
         required: [true, 'teacherid field is required.']
     },
     subjectid: {
-        type: String,
+        type: Schema.Types.ObjectId,
         required: [true, 'subjectid field is required.']
     },
     price: {

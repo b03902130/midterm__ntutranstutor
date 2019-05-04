@@ -47,7 +47,7 @@ module.exports = {
             return {
                 teacherid: doc.id,
                 name: doc.name,
-                department: req.session.departmentInfo.id2name[doc.departmentid],
+                department: req.session.departmentInfo.id2name[doc.departmentid.toString()],
                 imgurl: doc.imgurl,
                 description: doc.description
             }
@@ -59,8 +59,8 @@ module.exports = {
         docs = docs.map(doc => {
             return {
                 courseid: doc.id,
-                teacherid: doc.teacherid,
-                subject: req.session.subjectInfo.id2name[doc.subjectid],
+                teacherid: doc.teacherid.toString(),
+                subject: req.session.subjectInfo.id2name[doc.subjectid.toString()],
                 price: doc.price,
                 description: doc.description
             }

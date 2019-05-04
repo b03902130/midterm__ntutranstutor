@@ -22,7 +22,7 @@ function organizeInputTeacher(req, res, next) {
         res.status(404).send("No data received");
     }
     if (input.department) {
-        input.departmentid = req.session.departmentInfo.name2id[input.department];
+        input.departmentid = mongoose.Types.ObjectId(req.session.departmentInfo.name2id[input.department]);
     }
     let sanitized = {};
     Object.keys(Teacher.schema.obj).forEach(field => {
