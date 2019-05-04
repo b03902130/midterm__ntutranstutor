@@ -68,17 +68,17 @@ router.post('/', checkSession, checkIsTeacher, organizeInputCourse, (req, res, n
 // });
 
 // edit: cause course information is public, no need to check the authorization
-// router.get('/:id/edit/', (req, res, next) => {
-//     Course.where("_id", req.params.id).exec().catch(err => { dealServerError(err, res); }).then(docs => {
-//         docs = organizeOutputTeacher(docs, req);
-//         if (docs.length === 0) {
-//             res.status(400).send("Teacher unexisted");
-//         }
-//         else {
-//             res.status(200).send({ info: docs[0] });
-//         }
-//     });
-// });
+router.get('/:id/edit/', (req, res, next) => {
+    Course.where("_id", req.params.id).exec().catch(err => { dealServerError(err, res); }).then(docs => {
+        docs = organizeOutputCourse(docs, req);
+        if (docs.length === 0) {
+            res.status(400).send("Course unexisted");
+        }
+        else {
+            res.status(200).send({ info: docs[0] });
+        }
+    });
+});
 
 // router.get('/:id/courses/', (req, res, next) => {
 //     Course.where("teacherid", req.params.id).exec().catch(err => { dealServerError(err, res); }).then(docs => {
@@ -88,14 +88,14 @@ router.post('/', checkSession, checkIsTeacher, organizeInputCourse, (req, res, n
 // });
 
 // update
-// router.post('/:id/put/', checkSession, checkTeacherId, organizeInputTeacher, (req, res, next) => {
-//     Teacher.updateOne({ _id: req.params.id }, req.body.data).exec().catch(err => { dealServerError(err, res); }).then(docs => {
-//         if (docs.length === 0) {
-//             res.status(400).send("Teacher unexisted");
-//         }
-//         res.status(200).send();
-//     });
-// });
+router.post('/:id/put/', checkSession, organizeInputCourse, (req, res, next) => {
+    Course.updateOne({ _id: req.params.id, teacherid: req.session.teacherid }, req.body.data).exec().catch(err => { dealServerError(err, res); }).then(docs => {
+        if (docs.length === 0) {
+            res.status(404).send("Course not found or User not authorized");
+        }
+        res.status(200).send();
+    });
+});
 
 // destroy
 router.get('/:id/delete/', checkSession, (req, res, next) => {

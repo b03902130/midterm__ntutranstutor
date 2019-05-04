@@ -58,10 +58,10 @@ let tools = {
     organizeOutputCourse: function (docsFromDatabase, req) {
         let docs = docsFromDatabase;
         docs = docs.map(doc => {
-            let processedTeacher = typeof doc.teacherid === mongoose.Types.ObjectId ?
-                doc.teacherid.toString()
-                :
+            let processedTeacher = doc.teacherid.googleid ?
                 tools.organizeOutputTeacher([doc.teacherid], req)
+                :
+                doc.teacherid.toString()
             return {
                 courseid: doc.id,
                 teacherid: processedTeacher,

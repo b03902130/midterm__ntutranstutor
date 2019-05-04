@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 // import Teachers from './teacher/Teachers';
 import CourseNew from './course/CourseNew';
 // import Teacher from './teacher/Teacher';
-// import TeacherEdit from "./teacher/TeacherEdit";
+import CourseEdit from "./course/CourseEdit";
 // import TeacherCoursesEdit from './teacher/TeacherCoursesEdit';
 
 class CourseController extends Component {
@@ -20,11 +20,11 @@ class CourseController extends Component {
                     }} />
                     {/* <Route exact path={`${this.props.match.path}/:id`} render={(props) => {
                         return <Teacher {...this.props} {...props} />
-                    }} />
+                    }} /> */}
                     <Route exact path={`${this.props.match.path}/:id/edit`} render={(props) => {
-                        return <TeacherEdit {...this.props} {...props} />
+                        return <CourseEdit {...this.props} {...props} />
                     }} />
-                    <Route exact path={`${this.props.match.path}/:id/courses/edit`} render={(props) => {
+                    {/* <Route exact path={`${this.props.match.path}/:id/courses/edit`} render={(props) => {
                         return <TeacherCoursesEdit {...this.props} {...props} />
                     }} /> */}
                 </Switch>

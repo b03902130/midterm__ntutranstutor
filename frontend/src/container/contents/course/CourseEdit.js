@@ -10,13 +10,24 @@ class CourseEdit extends Component {
         super(props);
         this.state = {
             info: {
-                courseid: "",
-                subject: "",
-                price: "",
-                description: ""
+                courseid: "loading",
+                subject: "loading",
+                price: "loading",
+                description: "loading"
             },
             submitted: false,
         }
+    }
+
+    componentDidMount = () => {
+        this.props.app.getAxios("/courses/" + this.props.match.params.id + "/edit", data => {
+            this.setState(state => {
+                Object.keys(state.info).forEach(field => {
+                    state.info[field] = data.info[field];
+                });
+                return state;
+            });
+        });
     }
 
     change = (e) => {
@@ -37,8 +48,8 @@ class CourseEdit extends Component {
             alert("請完整填寫資訊");
         }
         else {
-            this.props.app.postAxios("/courses", this.state.info, data => {
-                this.setState({ courseid: data.courseid, submitted: true });
+            this.props.app.postAxios(`/courses/${this.props.match.params.id}/put`, this.state.info, data => {
+                this.setState({ submitted: true });
             });
         }
     }
