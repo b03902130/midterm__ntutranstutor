@@ -45,10 +45,17 @@ let tools = {
     organizeOutputTeacher: function (docsFromDatabase, req) {
         let docs = docsFromDatabase;
         docs = docs.map(doc => {
+            let processedDepartment = doc.departmentid.name ? 
+                {
+                    departmentid: doc.departmentid.id,
+                    name: doc.departmentid.name
+                }
+                :
+                req.session.departmentInfo.id2name[doc.departmentid.toString()];
             return {
                 teacherid: doc.id,
                 name: doc.name,
-                department: req.session.departmentInfo.id2name[doc.departmentid.toString()],
+                department: processedDepartment,
                 imgurl: doc.imgurl,
                 description: doc.description
             }
@@ -58,10 +65,10 @@ let tools = {
     organizeOutputCourse: function (docsFromDatabase, req) {
         let docs = docsFromDatabase;
         docs = docs.map(doc => {
-            let processedTeacher = doc.teacherid.googleid ?
-                tools.organizeOutputTeacher([doc.teacherid], req)
+            let processedTeacher = doc.teacherid.name ?
+                tools.organizeOutputTeacher([doc.teacherid], req)[0]
                 :
-                doc.teacherid.toString()
+                doc.teacherid.toString();
             return {
                 courseid: doc.id,
                 teacherid: processedTeacher,

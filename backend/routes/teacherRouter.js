@@ -40,7 +40,7 @@ function organizeInputTeacher(req, res, next) {
 
 // index
 router.get('/', (req, res, next) => {
-    Teacher.find().exec().catch(err => { dealServerError(err, res); }).then(docs => {
+    Teacher.find().populate("departmentid").exec().catch(err => { dealServerError(err, res); }).then(docs => {
         docs = organizeOutputTeacher(docs, req);
         res.status(200).send({ infos: docs });
     });

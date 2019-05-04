@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
-import { Card, CardDeck, Button, Container, Row, Col } from 'react-bootstrap'
+import { Card, Button, Row, Col } from 'react-bootstrap'
 
 import Axios from 'axios'
 Axios.defaults.withCredentials = true
