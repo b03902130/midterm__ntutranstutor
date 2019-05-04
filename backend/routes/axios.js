@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var teacherRouter = require('./teacherRouter');
+var courseRouter = require('./courseRouter');
 var tools = require('./tools');
 
 // mongoose schema
@@ -74,6 +75,7 @@ router.get('/connection', function (req, res, next) {
 });
 
 router.use("/teachers", teacherRouter);
+router.use("/courses", courseRouter);
 
 
 module.exports = router;

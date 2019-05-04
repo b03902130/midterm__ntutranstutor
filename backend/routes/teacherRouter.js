@@ -90,7 +90,7 @@ router.get('/:id/edit/', (req, res, next) => {
 router.get('/:id/courses/', (req, res, next) => {
     Course.where("teacherid", req.params.id).exec().catch(err => { dealServerError(err, res); }).then(docs => {
         docs = organizeOutputCourse(docs, req);
-        res.status(200).send(docs);
+        res.status(200).send({ courses: docs });
     });
 });
 
@@ -107,7 +107,7 @@ router.post('/:id/put/', checkSession, checkTeacherId, organizeInputTeacher, (re
 // destroy
 router.get('/:id/delete/', checkSession, checkTeacherId, (req, res, next) => {
     Teacher.deleteOne({ _id: req.params.id }).catch(err => { dealServerError(err, res); }).then(docs => {
-        Course.deleteMany({teacherid: req.params.id}).catch(err => { dealServerError(err, res); }).then(docs => {
+        Course.deleteMany({ teacherid: req.params.id }).catch(err => { dealServerError(err, res); }).then(docs => {
             res.status(200).send();
         });
     });

@@ -37,8 +37,8 @@ class TeacherEdit extends Component {
     }
 
     submit = () => {
-        if (this.state.info.description === "") {
-            alert("請填寫教師個人介紹");
+        if (this.state.info.description === "" || this.state.info.name === "") {
+            alert("請完整填寫資訊");
         }
         else {
             this.props.app.postAxios("/teachers/" + this.props.match.params.id + "/put", this.state.info, data => {
@@ -62,7 +62,7 @@ class TeacherEdit extends Component {
                         <Redirect to="/" />
                         :
                         this.state.submitted ?
-                            <Redirect to="/teachers" />
+                            <Redirect to={`/teachers/${this.props.app.teacherid}`} />
                             :
                             <div className="TeacherForm">
                                 <div>

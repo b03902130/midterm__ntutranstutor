@@ -9,41 +9,39 @@ class CourseNew extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            // info: {
-            //     teacherid: "",
-            //     name: this.props.app.name,
-            //     department: "就讀科系",
-            //     imgurl: this.props.app.imgurl,
-            //     description: ""
-            // },
+            info: {
+                courseid: "",
+                subject: "英文",
+                price: "123",
+                description: "456"
+            },
             submitted: false,
         }
     }
 
-    // change = (e) => {
-    //     let content = e.target.value;
-    //     if (e.target.id === "teacher_name") {
-    //         this.setState(state => ({ info: { ...state.info, name: content } }));
-    //     }
-    //     else if (e.target.id === "teacher_description") {
-    //         this.setState(state => ({ info: { ...state.info, description: content } }));
-    //     }
-    // }
+    change = (e) => {
+        let content = e.target.value;
+        if (e.target.id === "course_price") {
+            this.setState(state => ({ info: { ...state.info, price: content } }));
+        }
+        else if (e.target.id === "course_description") {
+            this.setState(state => ({ info: { ...state.info, description: content } }));
+        }
+    }
 
-    // submit = () => {
-    //     if (this.state.info.department === "就讀科系") {
-    //         alert("請選擇就讀科系");
-    //     }
-    //     else if (this.state.info.description === "") {
-    //         alert("請填寫教師個人介紹");
-    //     }
-    //     else {
-    //         this.props.app.postAxios("/teachers", this.state.info, data => {
-    //             this.setState({ submitted: true });
-    //             this.props.app.updateSession();
-    //         });
-    //     }
-    // }
+    submit = () => {
+        if (this.state.info.subject === "科目名稱") {
+            alert("請選擇科目名稱");
+        }
+        else if (this.state.info.description === "" || this.state.info.price === "") {
+            alert("請完整填寫資訊");
+        }
+        else {
+            this.props.app.postAxios("/courses", this.state.info, data => {
+                this.setState({ courseid: data.courseid, submitted: true });
+            });
+        }
+    }
 
     render() {
         return (
@@ -53,10 +51,10 @@ class CourseNew extends Component {
                         <Redirect to="/" />
                         :
                         this.state.submitted ?
-                            <Redirect to="/courses" />
+                            <Redirect to={`/courses/${this.state.courseid}`} />
                             :
                             <div className="Course_Form">
-                                <p>Course form</p>
+                                <button onClick={this.submit}>Course form</button>
                                 {/* <div>
                                     <label htmlFor="teacher_name">教師名稱</label>
                                     <input id="teacher_name" value={this.state.info.name} onChange={this.change} />
