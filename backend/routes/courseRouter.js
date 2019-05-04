@@ -67,9 +67,9 @@ router.post('/', checkSession, checkIsTeacher, organizeInputCourse, (req, res, n
 //     });
 // });
 
-// edit: cause teacher information is public, no need to check the authorization
+// edit: cause course information is public, no need to check the authorization
 // router.get('/:id/edit/', (req, res, next) => {
-//     Teacher.where("_id", req.params.id).exec().catch(err => { dealServerError(err, res); }).then(docs => {
+//     Course.where("_id", req.params.id).exec().catch(err => { dealServerError(err, res); }).then(docs => {
 //         docs = organizeOutputTeacher(docs, req);
 //         if (docs.length === 0) {
 //             res.status(400).send("Teacher unexisted");

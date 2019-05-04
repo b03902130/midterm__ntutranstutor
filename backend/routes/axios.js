@@ -51,7 +51,7 @@ router.get('/logout', function (req, res, next) {
 });
 
 router.get('/session', function (req, res, next) {
-    if (!req.session.departmentInfo) {
+    if (!req.session.googleid) {
         req.session.departmentInfo = departmentInfo;
         req.session.subjectInfo = subjectInfo;
     }

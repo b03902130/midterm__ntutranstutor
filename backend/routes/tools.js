@@ -1,7 +1,8 @@
 var Whitelist = require('../models/whitelist');
 var Teacher = require('../models/teacher');
+var mongoose = require('mongoose');
 
-module.exports = {
+let tools = {
     checkSession: function (req, res, next) {
         if (!req.session.googleid) {
             res.status(401).send("Login is required");
@@ -57,9 +58,13 @@ module.exports = {
     organizeOutputCourse: function (docsFromDatabase, req) {
         let docs = docsFromDatabase;
         docs = docs.map(doc => {
+            let processedTeacher = typeof doc.teacherid === mongoose.Types.ObjectId ?
+                doc.teacherid.toString()
+                :
+                tools.organizeOutputTeacher([doc.teacherid], req)
             return {
                 courseid: doc.id,
-                teacherid: doc.teacherid.toString(),
+                teacherid: processedTeacher,
                 subject: req.session.subjectInfo.id2name[doc.subjectid.toString()],
                 price: doc.price,
                 description: doc.description
@@ -68,3 +73,5 @@ module.exports = {
         return docs;
     }
 };
+
+module.exports = tools;

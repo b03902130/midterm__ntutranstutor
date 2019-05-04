@@ -29,18 +29,28 @@ class App extends Component {
             getAxios: (operation, dataHandler) => {
                 Axios.get(renderURI("/axios") + operation)
                     .then(response => { dataHandler(response.data); })
-                    .catch(err => { 
-                        let response = err.response;
-                        alert(`${response.status}: ${response.statusText}\n${response.data}`);
-                     });
+                    .catch(err => {
+                        if (!err.response) {
+                            alert(err);
+                        }
+                        else {
+                            let response = err.response;
+                            alert(`${response.status}: ${response.statusText}\n${response.data}`);
+                        }
+                    });
             },
             postAxios: (operation, data, dataHandler) => {
                 Axios.post(renderURI("/axios") + operation, { data: data })
                     .then(response => { dataHandler(response.data); })
-                    .catch(err => { 
-                        let response = err.response;
-                        alert(`${response.status}: ${response.statusText}\n${response.data}`);
-                     });
+                    .catch(err => {
+                        if (!err.response) {
+                            alert(err);
+                        }
+                        else {
+                            let response = err.response;
+                            alert(`${response.status}: ${response.statusText}\n${response.data}`);
+                        }
+                    });
             },
             logout: () => {
                 this.state.getAxios("/logout", data => {

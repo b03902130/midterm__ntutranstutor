@@ -88,7 +88,7 @@ router.get('/:id/edit/', (req, res, next) => {
 });
 
 router.get('/:id/courses/', (req, res, next) => {
-    Course.where("teacherid", req.params.id).exec().catch(err => { dealServerError(err, res); }).then(docs => {
+    Course.where("teacherid", req.params.id).populate("teacherid").exec().catch(err => { dealServerError(err, res); }).then(docs => {
         docs = organizeOutputCourse(docs, req);
         res.status(200).send({ courses: docs });
     });
