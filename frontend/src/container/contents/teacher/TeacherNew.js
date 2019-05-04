@@ -10,6 +10,7 @@ class TeacherNew extends Component {
         super(props);
         this.state = {
             info: {
+                teacherid: "",
                 name: this.props.app.name,
                 department: "就讀科系",
                 imgurl: this.props.app.imgurl,
@@ -29,7 +30,7 @@ class TeacherNew extends Component {
         }
     }
 
-    submit = async () => {
+    submit = () => {
         if (this.state.info.department === "就讀科系") {
             alert("請選擇就讀科系");
         }
@@ -52,7 +53,7 @@ class TeacherNew extends Component {
                         <Redirect to="/" />
                         :
                         this.state.submitted ?
-                            <Redirect to={`/teachers/${this.props.app.teacherid}`} />
+                            <Redirect to="/teachers" />
                             :
                             <div className="TeacherForm">
                                 <div>

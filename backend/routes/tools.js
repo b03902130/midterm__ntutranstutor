@@ -41,4 +41,30 @@ module.exports = {
             else { next(); }
         });
     },
+    organizeOutputTeacher: function (docsFromDatabase, req) {
+        let docs = docsFromDatabase;
+        docs = docs.map(doc => {
+            return {
+                teacherid: doc.id,
+                name: doc.name,
+                department: req.session.departmentInfo.id2name[doc.departmentid],
+                imgurl: doc.imgurl,
+                description: doc.description
+            }
+        });
+        return docs;
+    },
+    organizeOutputCourse: function (docsFromDatabase, req) {
+        let docs = docsFromDatabase;
+        docs = docs.map(doc => {
+            return {
+                courseid: doc.id,
+                teacherid: doc.teacherid,
+                subject: req.session.subjectInfo.id2name[doc.subjectid],
+                price: doc.price,
+                description: doc.description
+            }
+        });
+        return docs;
+    }
 };

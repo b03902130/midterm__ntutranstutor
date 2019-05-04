@@ -1,10 +1,11 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var router = express.Router();
-var { checkSession, checkAuthorized, dealServerError } = require('./tools');
+var { checkSession, checkAuthorized, dealServerError, organizeOutputTeacher, organizeOutputCourse } = require('./tools');
 
 // mongoose schema
 var Teacher = require('../models/teacher');
+var Course = require('../models/course');
 
 // check if the user has privilege to modifiy teacher information
 function checkTeacherId(req, res, next) {
@@ -31,19 +32,6 @@ function organizeInputTeacher(req, res, next) {
     });
     req.body.data = sanitized;
     next()
-}
-
-function organizeOutputTeacher(docsFromDatabase, req) {
-    let docs = docsFromDatabase;
-    docs = docs.map(doc => {
-        return {
-            name: doc.name,
-            department: req.session.departmentInfo.id2name[doc.departmentid],
-            imgurl: doc.imgurl,
-            description: doc.description
-        }
-    });
-    return docs;
 }
 
 
@@ -99,6 +87,13 @@ router.get('/:id/edit/', (req, res, next) => {
     });
 });
 
+router.get('/:id/courses/', (req, res, next) => {
+    Course.where("teacherid", req.params.id).exec().catch(err => { dealServerError(err, res); }).then(docs => {
+        docs = organizeOutputCourse(docs, req);
+        res.status(200).send(docs);
+    });
+});
+
 // update
 router.post('/:id/put/', checkSession, checkTeacherId, organizeInputTeacher, (req, res, next) => {
     Teacher.updateOne({ _id: req.params.id }, req.body.data).exec().catch(err => { dealServerError(err, res); }).then(docs => {
@@ -112,7 +107,9 @@ router.post('/:id/put/', checkSession, checkTeacherId, organizeInputTeacher, (re
 // destroy
 router.get('/:id/delete/', checkSession, checkTeacherId, (req, res, next) => {
     Teacher.deleteOne({ _id: req.params.id }).catch(err => { dealServerError(err, res); }).then(docs => {
-        res.status(200).send();
+        Course.deleteMany({teacherid: req.params.id}).catch(err => { dealServerError(err, res); }).then(docs => {
+            res.status(200).send();
+        });
     });
 });
 
