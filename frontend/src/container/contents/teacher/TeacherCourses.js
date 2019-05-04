@@ -13,10 +13,21 @@ class TeacherCourses extends Component {
         }
     }
 
-    componentDidMount() {
-        this.props.app.getAxios("/teachers/" + this.props.match.params.id + "/courses", data => {
+    refreshCourses = () => {
+        this.props.app.getAxios(`/teachers/${this.props.match.params.id}/courses`, data => {
             this.setState({ courses: data.courses });
         });
+    }
+
+    deleteCourse = (e) => {
+        let courseid = e.target.id;
+        this.props.app.getAxios(`/courses/${courseid}/delete`, data => {
+            this.refreshCourses();
+        });
+    }
+
+    componentDidMount() {
+        this.refreshCourses();
     }
 
     render() {
@@ -31,20 +42,21 @@ class TeacherCourses extends Component {
                 <Link exact to="/courses/new">建立新課程</Link>
                 {
                     decks.map(deck =>
-                        <Row>
+                        <Row style={{ margin: "0 30px 0 30px" }}>
                             {
                                 deck.map(course =>
-                                    <Col sm={4}>
-                                        <Card style={{ height: '15em' }}>
+                                    <Col lg={4}>
+                                        <Card style={{ height: '15em', margin: "20px 0 20px 0" }}>
+                                            <Card.Header>{course.subject}</Card.Header>
                                             <Card.Body>
-                                                <Card.Title>{course.subject}</Card.Title>
-                                                <Card.Subtitle>{course.price}</Card.Subtitle>
+                                                <Card.Title>{course.price}</Card.Title>
                                                 <Card.Text>{course.description}</Card.Text>
                                                 <div>
-                                                    <Link to={`/courses/${course.courseid}/edit`}><Button style={{margin: "0 5px 5px 0"}} variant="success">編輯課程</Button></Link>
-                                                    <Link to={`/courses/${course.courseid}/delete`}><Button style={{margin: "0 5px 5px 0"}}  variant="danger">刪除課程</Button></Link>
+                                                    <Link to={`/courses/${course.courseid}/edit`}><Button style={{ margin: "0 5px 5px 0" }} variant="success">編輯課程</Button></Link>
+                                                    <Button id={course.courseid} style={{ margin: "0 5px 5px 0" }} variant="danger" onClick={this.deleteCourse}>刪除課程</Button>
                                                 </div>
                                             </Card.Body>
+                                            <Card.Footer className="text-muted"></Card.Footer>
                                         </Card>
                                     </Col>
                                 )

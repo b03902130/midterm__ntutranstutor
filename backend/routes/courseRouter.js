@@ -50,7 +50,7 @@ function organizeInputCourse(req, res, next) {
 router.post('/', checkSession, checkIsTeacher, organizeInputCourse, (req, res, next) => {
     const course = new Course({ ...req.body.data, teacherid: req.session.teacherid });
     course.save().catch(err => { dealServerError(err, res); }).then(doc => {
-        res.status(200).send({courseid: doc.id});
+        res.status(200).send({ courseid: doc.id });
     });
 });
 
@@ -98,12 +98,13 @@ router.post('/', checkSession, checkIsTeacher, organizeInputCourse, (req, res, n
 // });
 
 // destroy
-// router.get('/:id/delete/', checkSession, checkTeacherId, (req, res, next) => {
-//     Teacher.deleteOne({ _id: req.params.id }).catch(err => { dealServerError(err, res); }).then(docs => {
-//         Course.deleteMany({teacherid: req.params.id}).catch(err => { dealServerError(err, res); }).then(docs => {
-//             res.status(200).send();
-//         });
-//     });
-// });
+router.get('/:id/delete/', checkSession, (req, res, next) => {
+    Course.findOneAndDelete({ _id: req.params.id, teacherid: req.session.teacherid }).exec().catch(err => {dealServerError(err, res)}).then(doc => {
+        if (!doc) {
+            res.status(401).send("You are not allow to delete this course");
+        }
+        res.status(200).send(doc);
+    });
+});
 
 module.exports = router;

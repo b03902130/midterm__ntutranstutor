@@ -11,9 +11,9 @@ class CourseNew extends Component {
         this.state = {
             info: {
                 courseid: "",
-                subject: "英文",
-                price: "123",
-                description: "456"
+                subject: "科目名稱",
+                price: "",
+                description: ""
             },
             submitted: false,
         }
@@ -33,7 +33,7 @@ class CourseNew extends Component {
         if (this.state.info.subject === "科目名稱") {
             alert("請選擇科目名稱");
         }
-        else if (this.state.info.description === "" || this.state.info.price === "") {
+        else if (this.state.info.price === "" || this.state.info.description === "") {
             alert("請完整填寫資訊");
         }
         else {
@@ -51,30 +51,28 @@ class CourseNew extends Component {
                         <Redirect to="/" />
                         :
                         this.state.submitted ?
-                            <Redirect to={`/courses/${this.state.courseid}`} />
+                            <Redirect to={`/teachers/${this.props.app.teacherid}/courses`} />
                             :
-                            <div className="Course_Form">
-                                <button onClick={this.submit}>Course form</button>
-                                {/* <div>
-                                    <label htmlFor="teacher_name">教師名稱</label>
-                                    <input id="teacher_name" value={this.state.info.name} onChange={this.change} />
-                                </div>
-                                <DropdownButton title={this.state.info.department}>
+                            <div className="course_form">
+                                <DropdownButton title={this.state.info.subject}>
                                     {
-                                        this.props.app.departmentInfo.names.map(department =>
+                                        this.props.app.subjectInfo.names.map(subject =>
                                             <Dropdown.Item><div onClick={e => {
                                                 let selected = e.target.innerText;
-                                                this.setState(state => ({ info: { ...state.info, department: selected } }))
-                                            }}>{department}</div></Dropdown.Item>)
+                                                this.setState(state => ({ info: { ...state.info, subject: selected } }))
+                                            }}>{subject}</div></Dropdown.Item>)
                                     }
                                 </DropdownButton>
                                 <div>
-                                    <label htmlFor="teacher_description">個人介紹</label>
-                                    <textarea id="teacher_description" value={this.state.info.description} onChange={this.change} />
+                                    <label htmlFor="course_price">預期費用</label>
+                                    <input id="course_price" value={this.state.info.price} onChange={this.change} />
                                 </div>
-                                <div><button type="submit" onClick={this.submit}>submit</button></div> */}
+                                <div>
+                                    <label htmlFor="course_description">課程介紹</label>
+                                    <textarea id="course_description" value={this.state.info.description} onChange={this.change} />
+                                </div>
+                                <div><button type="submit" onClick={this.submit}>submit</button></div>
                             </div>
-
                 }
             </ div >
         );
