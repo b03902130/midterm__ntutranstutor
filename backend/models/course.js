@@ -5,11 +5,13 @@ const Schema = mongoose.Schema
 const CourseSchema = new Schema({
     teacherid: {
         type: Schema.Types.ObjectId,
-        required: [true, 'teacherid field is required.']
+        required: [true, 'teacherid field is required.'],
+        ref: 'teacher'
     },
     subjectid: {
         type: Schema.Types.ObjectId,
-        required: [true, 'subjectid field is required.']
+        required: [true, 'subjectid field is required.'],
+        ref: 'subject'
     },
     price: {
         type: String,
