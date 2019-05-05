@@ -31,7 +31,7 @@ function TeacherCard(props) {
   courses = courses.map(courseid => allcourses[courseid]);
   return (
     <Card className={classes.card} style={{ width: "300px" }}>
-      <Link to="/about" style={{ textDecoration: 'none', color: 'white' }}>
+      <Link to={`/teachers/${teacher.id}`} style={{ textDecoration: 'none', color: 'white' }}>
         <CardActionArea>
           <CardMedia
             className={classes.media}

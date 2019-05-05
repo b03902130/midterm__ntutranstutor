@@ -20,14 +20,30 @@ class TeacherNew extends Component {
             filename: "Choose file",
             submitted: false,
         }
+        this.registered = false;
     }
 
-    componentDidMount = () => {
-        new Imgur({
-            targetClass: ".imgurUploader",
-            clientid: '428e97466328a8c',
-            callback: this.imageUploaded
-        });
+    componentWillReceiveProps() {
+        this.setState(state => ({
+            info: {
+                id: this.props.app.teacherid,
+                name: this.props.app.name,
+                imgurl: this.props.app.imgurl,
+                department: "就讀科系",
+                description: ""
+            }
+        }));
+    }
+
+    imgLoaded = (e) => {
+        if (!this.registered) {
+            this.registered = true;
+            this.uploader = new Imgur({
+                targetClass: ".imgurUploader",
+                clientid: '428e97466328a8c',
+                callback: this.imageUploaded
+            });
+        }
     }
 
     imageUploaded = (res) => {
@@ -73,6 +89,7 @@ class TeacherNew extends Component {
                 {
                     !this.props.app.identity || this.props.app.identity === "outsider" ?
                         <Redirect to="/" />
+                        // <p>You are not authorized</p>
                         :
                         this.state.submitted ?
                             <Redirect to={`/teachers/${this.props.app.teacherid}`} />
@@ -82,7 +99,7 @@ class TeacherNew extends Component {
                                     <input type="file" className="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" onChange={this.fileSelected} />
                                     <label className="custom-file-label" htmlFor="inputGroupFile01">{this.state.filename}</label>
                                 </div>
-                                <img style={{width: "200px"}} alt="teacher" src={this.state.info.imgurl} />
+                                <img style={{ width: "200px" }} alt="teacher" src={this.state.info.imgurl} onLoad={this.imgLoaded} />
                                 <div>
                                     <label htmlFor="teacher_name">教師名稱</label>
                                     <input id="teacher_name" value={this.state.info.name} onChange={this.change} />

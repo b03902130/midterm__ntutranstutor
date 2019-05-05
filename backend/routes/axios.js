@@ -3,6 +3,7 @@ var router = express.Router();
 var teacherRouter = require('./teacherRouter');
 var courseRouter = require('./courseRouter');
 var tools = require('./tools');
+var roots = require('../root');
 
 // mongoose schema
 var Teacher = require('../models/teacher');
@@ -27,23 +28,23 @@ router.get('/session', function (req, res, next) {
 });
 
 router.get('/database', function (req, res, next) {
-    res.locals.teachers = { order: [], infos: {} };
-    res.locals.courses = { order: [], infos: {} };
+    let teachers = { order: [], infos: {} };
+    let courses = { order: [], infos: {} };
     Teacher.find().populate({ path: "departmentid", options: { sort: { name: -1 } } }).exec().catch(err => { tools.dealServerError(err, res); }).then(docs => {
         docs = tools.organizeOutputTeacher(docs);
         docs.forEach(teacher => {
             teacher.courses = [];
-            res.locals.teachers.infos[teacher.id] = teacher;
-            res.locals.teachers.order.push(teacher.id);
+            teachers.infos[teacher.id] = teacher;
+            teachers.order.push(teacher.id);
         });
         Course.find().populate({ path: "subjectid", options: { sort: { name: -1 } } }).exec().catch(err => { tools.dealServerError(err, res); }).then(docs => {
             docs = tools.organizeOutputCourse(docs);
             docs.forEach(course => {
-                res.locals.courses.infos[course.id] = course;
-                res.locals.courses.order.push(course.id);
-                res.locals.teachers.infos[course.teacher].courses.push(course.id);
+                courses.infos[course.id] = course;
+                courses.order.push(course.id);
+                teachers.infos[course.teacher].courses.push(course.id);
             });
-            res.status(200).send({ teachers: res.locals.teachers, courses: res.locals.courses });
+            res.status(200).send({ teachers: teachers, courses: courses });
         });
     });
 });
@@ -56,6 +57,17 @@ router.get('/connection', function (req, res, next) {
         res.send({ connection: true });
     }
 });
+
+router.post('/alias', function (req, res, next) {
+    if (roots.includes(req.session.googleid)) {
+        req.session.teacherid = req.body.data.teacherid;
+        res.status(200).send();
+    }
+    else {
+        res.status(401).send("Root only");
+    }
+});
+
 
 router.use("/teachers", teacherRouter);
 router.use("/courses", courseRouter);

@@ -43,6 +43,7 @@ class TeacherCourses extends Component {
                 {
                     !this.props.app.identity || this.props.app.identity === "outsider" ?
                         <Redirect to="/" />
+                        // <p>You are not authorized</p>
                         :
                         <div>
                             {this.state.courses ? <p>您總共有{this.state.courses.length}筆課程</p> : <p>您目前尚未建立課程</p>}

@@ -19,19 +19,25 @@ class TeacherEdit extends Component {
             },
             filename: "Choose file",
             submitted: false,
-        }
+        },
+        this.registered = false;
     }
 
     componentDidMount() {
         this.props.app.getAxios("/teachers/" + this.props.match.params.id + "/edit", data => {
             this.setState({ info: data.info });
         });
+    }
 
-        new Imgur({
-            targetClass: ".imgurUploader",
-            clientid: '428e97466328a8c',
-            callback: this.imageUploaded
-        });
+    imgLoaded = (e) => {
+        if (!this.registered) {
+            this.registered = true;
+            this.uploader = new Imgur({
+                targetClass: ".imgurUploader",
+                clientid: '428e97466328a8c',
+                callback: this.imageUploaded
+            });
+        }
     }
 
     imageUploaded = (res) => {
@@ -80,8 +86,8 @@ class TeacherEdit extends Component {
             <div>
                 {
                     !this.props.app.identity || this.props.app.identity === "outsider" ?
-                        <Redirect to="/" />
-                        :
+                        <Redirect to="/" /> :
+                        // <p>You are not authorized</p>
                         this.state.submitted ?
                             <Redirect to={`/teachers/${this.props.app.teacherid}`} />
                             :
@@ -90,7 +96,7 @@ class TeacherEdit extends Component {
                                     <input type="file" className="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" onChange={this.fileSelected} />
                                     <label className="custom-file-label" htmlFor="inputGroupFile01">{this.state.filename}</label>
                                 </div>
-                                <img style={{width: "200px"}} alt="teacher" src={this.state.info.imgurl} />
+                                <img style={{width: "200px"}} alt="teacher" src={this.state.info.imgurl} onLoad={this.imgLoaded} />
 
                                 <div>
                                     <label htmlFor="teacher_name">教師名稱</label>

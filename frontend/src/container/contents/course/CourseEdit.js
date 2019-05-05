@@ -60,8 +60,8 @@ class CourseEdit extends Component {
             <div>
                 {
                     !this.props.app.identity || this.props.app.identity === "outsider" ?
-                        <Redirect to="/" />
-                        :
+                        <Redirect to="/" /> :
+                        // <p>You are not authorized</p>
                         this.state.submitted ?
                             <Redirect to={`/teachers/${this.props.app.teacherid}/courses`} />
                             :

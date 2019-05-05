@@ -71,8 +71,8 @@ class App extends Component {
 					this.setState({ teachers: data.teachers, courses: data.courses });
 				});
 			},
-			callback: async (handler) => {
-				handler(this);
+			changeTeacherId: (id) => {
+				this.setState({teacherid: id});
 			}
 		};
 	}

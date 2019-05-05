@@ -42,15 +42,13 @@ function organizeInputTeacher(req, res, next) {
 // create
 router.post('/', checkSession, checkAuthorized, organizeInputTeacher, (req, res, next) => {
     Teacher.where("googleid", req.session.googleid).exec().catch(err => { dealServerError(err, res); }).then(docs => {
-        if (docs.length !== 0) {
-            res.status(400).send("You are already a teacher");
-        }
-        else {
-            const teacher = new Teacher({ googleid: req.session.googleid, ...req.body.data });
-            teacher.save().catch(err => { dealServerError(err, res); }).then(docs => {
-                res.status(200).send();
-            });
-        }
+        // if (docs.length !== 0) {
+        //     res.status(400).send("You are already a teacher");
+        // }
+        const teacher = new Teacher({ googleid: req.session.googleid, ...req.body.data });
+        teacher.save().catch(err => { dealServerError(err, res); }).then(docs => {
+            res.status(200).send();
+        });
     })
 });
 

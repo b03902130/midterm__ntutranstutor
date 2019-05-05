@@ -50,6 +50,7 @@ class CourseNew extends Component {
                 {
                     !this.props.app.identity || this.props.app.identity === "outsider" ?
                         <Redirect to="/" />
+                        // <p>You are not authorized</p>
                         :
                         this.state.submitted ?
                             <Redirect to={`/teachers/${this.props.app.teacherid}/courses`} />
