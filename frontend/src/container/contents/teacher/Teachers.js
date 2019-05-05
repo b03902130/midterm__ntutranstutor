@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import { ProductCard } from "react-ui-cards";
-import { Link } from "react-router-dom";
-import Button from '@material-ui/core/Button';
+import TeacherCard from '../../../component/TeacherCard';
 
 
 import Axios from 'axios'
@@ -13,9 +11,19 @@ class Teachers extends Component {
         let courses = this.props.app.courses;
         return (
             <div>
-                <Button variant="contained" color="primary">
-                    Hello World
-                </Button>
+                {/* <Grid
+                    container
+                    direction="row"
+                    justify="space-evenly"
+                    alignItems="flex-start"
+                >
+                </Grid> */}
+                {
+                    teachers &&
+                    teachers.order.map(teacherid =>
+                        <TeacherCard teacherid={teacherid} allteachers={teachers.infos} allcourses={courses.infos} />
+                    )
+                }
             </div>
         );
     };

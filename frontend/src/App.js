@@ -89,12 +89,6 @@ class App extends Component {
 					<div>
 						<Navigator app={this.state} />
 						<Content app={this.state} />
-						{
-							this.state.teachers &&
-							this.state.teachers.order.map(teacherid =>
-								 <TeacherCard teacherid={teacherid} allteachers={this.state.teachers.infos} allcourses={this.state.courses.infos} />
-							)
-						}
 					</div>
 				</BrowserRouter>
 			</div>

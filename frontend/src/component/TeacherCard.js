@@ -30,26 +30,26 @@ function TeacherCard(props) {
   let courses = teacher.courses;
   courses = courses.map(courseid => allcourses[courseid]);
   return (
-    <Card className={classes.card}>
+    <Card className={classes.card} style={{ width: "300px" }}>
       <Link to="/about" style={{ textDecoration: 'none', color: 'white' }}>
         <CardActionArea>
           <CardMedia
             className={classes.media}
             image={teacher.imgurl}
             title="Contemplative Reptile"
-            style={{ height: "350px" }}
+            style={{ height: "300px" }}
           />
-          <CardContent>
+          <CardContent style={{ margin: "5px", padding: "0" }}>
             <Grid container direction="row" justify="space-around" alignItems="center">
               <Grid item style={{ margin: "5px" }}>
                 <Typography variant="h5">
-                  <span style={{ fontWeight: "bold" }}>{teacher.name}</span>
+                  <span style={{ fontWeight: 900 }}>{teacher.name}</span>
                 </Typography>
               </Grid>
               <Grid item style={{ margin: "5px" }}>
-                <Fab variant="extended" size="medium" style={{ backgroundColor: "#2196f3" }} aria-label="Add" className={classes.margin}>
+                <Fab variant="extended" size="small" style={{ backgroundColor: "#2196f3", padding: "5px" }} aria-label="Add" className={classes.margin}>
                   <Link to="/" style={{ all: 'unset' }}>
-                    <span style={{ fontSize: "16px", color: "white" }}>了解更多</span>
+                    <span style={{ fontSize: "16px", color: "white", padding: "0 4px 0 4px" }}>{teacher.department.name}</span>
                   </Link>
                 </Fab>
               </Grid>
@@ -58,16 +58,22 @@ function TeacherCard(props) {
         </CardActionArea>
       </Link>
       <CardActions>
-        <Button size="small" style={{ border: "#f44336 1px solid", color: "#f44336", fontSize: "14px" }} variant="outlined" className={classes.button}>
-          <Link to="/" style={{ all: 'unset' }}>{teacher.department.name}</Link>
-        </Button>
-        {
-          courses.map(course =>
-            <Button size="small" style={{ border: "#2196f3 1px solid", color: "#2196f3", fontSize: "14px" }} variant="outlined" className={classes.button}>
-              <Link to="/" style={{ all: 'unset' }}>{course.subject.name}</Link>
+        <Grid container direction="row" justify="flex-start" alignItems="center">
+          {/* <Grid item style={{ margin: "3px" }}>
+            <Button size="small" style={{ border: "#f44336 1px solid", color: "#f44336", fontSize: "14px" }} variant="outlined" className={classes.button}>
+              <Link to="/" style={{ all: 'unset' }}>{teacher.department.name}</Link>
             </Button>
-          )
-        }
+          </Grid> */}
+          {
+            courses.map(course =>
+              <Grid item style={{ margin: "3px" }}>
+                <Button size="small" style={{ border: "#26a69a 1px solid", color: "#26a69a", fontSize: "14px", padding: "5px" }} variant="outlined" className={classes.button}>
+                  <Link to="/" style={{ all: 'unset' }}>{course.subject.name}</Link>
+                </Button>
+              </Grid>
+            )
+          }
+        </Grid>
       </CardActions>
     </Card >
   );
