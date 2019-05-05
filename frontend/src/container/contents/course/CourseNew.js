@@ -10,7 +10,7 @@ class CourseNew extends Component {
         super(props);
         this.state = {
             info: {
-                courseid: "",
+                id: "",
                 subject: "科目名稱",
                 price: "",
                 description: ""
@@ -38,7 +38,8 @@ class CourseNew extends Component {
         }
         else {
             this.props.app.postAxios("/courses", this.state.info, data => {
-                this.setState({ courseid: data.courseid, submitted: true });
+                this.setState({ submitted: true });
+                this.props.app.updateDatabase();
             });
         }
     }
@@ -56,7 +57,7 @@ class CourseNew extends Component {
                             <div className="course_form">
                                 <DropdownButton title={this.state.info.subject}>
                                     {
-                                        this.props.app.subjectInfo.names.map(subject =>
+                                        this.props.app.subjectOptions.map(subject =>
                                             <Dropdown.Item><div onClick={e => {
                                                 let selected = e.target.innerText;
                                                 this.setState(state => ({ info: { ...state.info, subject: selected } }))

@@ -11,7 +11,7 @@ class TeacherEdit extends Component {
         super(props);
         this.state = {
             info: {
-                teacherid: "",
+                id: "",
                 name: "",
                 department: "",
                 imgurl: "",
@@ -62,6 +62,7 @@ class TeacherEdit extends Component {
         else {
             this.props.app.postAxios("/teachers/" + this.props.match.params.id + "/put", this.state.info, data => {
                 this.setState({ submitted: true });
+                this.props.app.updateDatabase();
             });
         }
     }
@@ -70,6 +71,7 @@ class TeacherEdit extends Component {
         this.props.app.getAxios("/teachers/" + this.props.match.params.id + "/delete", data => {
             this.setState({ submitted: true });
             this.props.app.updateSession();
+            this.props.app.updateDatabase();
         });
     }
 
@@ -88,7 +90,7 @@ class TeacherEdit extends Component {
                                     <input type="file" className="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" onChange={this.fileSelected} />
                                     <label className="custom-file-label" htmlFor="inputGroupFile01">{this.state.filename}</label>
                                 </div>
-                                <img alt="teacher" src={this.state.info.imgurl} />
+                                <img style={{width: "200px"}} alt="teacher" src={this.state.info.imgurl} />
 
                                 <div>
                                     <label htmlFor="teacher_name">教師名稱</label>
@@ -96,7 +98,7 @@ class TeacherEdit extends Component {
                                 </div>
                                 <DropdownButton title={this.state.info.department}>
                                     {
-                                        this.props.app.departmentInfo.names.map(department =>
+                                        this.props.app.departmentOptions.map(department =>
                                             <Dropdown.Item><div onClick={e => {
                                                 let selected = e.target.innerText;
                                                 this.setState(state => ({ info: { ...state.info, department: selected } }))

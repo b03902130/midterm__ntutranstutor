@@ -2,6 +2,7 @@ var express = require('express');
 var mongoose = require('mongoose');
 var router = express.Router();
 var { checkSession, checkAuthorized, dealServerError, organizeOutputTeacher, organizeOutputCourse } = require('./tools');
+var preload = require('../preload');
 
 // mongoose schema
 var Teacher = require('../models/teacher');
@@ -22,7 +23,7 @@ function organizeInputTeacher(req, res, next) {
         res.status(404).send("No data received");
     }
     if (input.department) {
-        input.departmentid = mongoose.Types.ObjectId(req.session.departmentInfo.name2id[input.department]);
+        input.departmentid = mongoose.Types.ObjectId(preload.departmentInfo.name2id[input.department]);
     }
     let sanitized = {};
     Object.keys(Teacher.schema.obj).forEach(field => {
@@ -39,12 +40,12 @@ function organizeInputTeacher(req, res, next) {
 // RESTFUL API
 
 // index
-router.get('/', (req, res, next) => {
-    Teacher.find().populate("departmentid").exec().catch(err => { dealServerError(err, res); }).then(docs => {
-        docs = organizeOutputTeacher(docs, req);
-        res.status(200).send({ infos: docs });
-    });
-});
+// router.get('/', (req, res, next) => {
+//     Teacher.find().populate("departmentid").exec().catch(err => { dealServerError(err, res); }).then(docs => {
+//         docs = organizeOutputTeacher(docs, req);
+//         res.status(200).send({ infos: docs });
+//     });
+// });
 
 // create
 router.post('/', checkSession, checkAuthorized, organizeInputTeacher, (req, res, next) => {
@@ -64,7 +65,7 @@ router.post('/', checkSession, checkAuthorized, organizeInputTeacher, (req, res,
 // show
 router.get('/:id/', (req, res, next) => {
     Teacher.where("_id", req.params.id).exec().catch(err => { dealServerError(err, res); }).then(docs => {
-        docs = organizeOutputTeacher(docs, req);
+        docs = organizeOutputTeacher(docs);
         if (docs.length === 0) {
             res.status(400).send("Teacher unexisted");
         }
@@ -77,7 +78,7 @@ router.get('/:id/', (req, res, next) => {
 // edit: cause teacher information is public, no need to check the authorization
 router.get('/:id/edit/', (req, res, next) => {
     Teacher.where("_id", req.params.id).exec().catch(err => { dealServerError(err, res); }).then(docs => {
-        docs = organizeOutputTeacher(docs, req);
+        docs = organizeOutputTeacher(docs);
         if (docs.length === 0) {
             res.status(400).send("Teacher unexisted");
         }
@@ -89,7 +90,7 @@ router.get('/:id/edit/', (req, res, next) => {
 
 router.get('/:id/courses/', (req, res, next) => {
     Course.where("teacherid", req.params.id).populate("teacherid").exec().catch(err => { dealServerError(err, res); }).then(docs => {
-        docs = organizeOutputCourse(docs, req);
+        docs = organizeOutputCourse(docs);
         res.status(200).send({ courses: docs });
     });
 });
@@ -106,7 +107,7 @@ router.post('/:id/put/', checkSession, checkTeacherId, organizeInputTeacher, (re
 
 // destroy
 router.get('/:id/delete/', checkSession, checkTeacherId, (req, res, next) => {
-    Teacher.deleteOne({ _id: req.params.id }).catch(err => { dealServerError(err, res); }).then(docs => {
+    Teacher.deleteMany({ _id: req.params.id }).catch(err => { dealServerError(err, res); }).then(docs => {
         Course.deleteMany({ teacherid: req.params.id }).catch(err => { dealServerError(err, res); }).then(docs => {
             res.status(200).send();
         });

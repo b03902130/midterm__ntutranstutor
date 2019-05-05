@@ -18,13 +18,15 @@ class App extends Component {
 			emails: "",
 			identity: "",
 			teacherid: "",
-			departmentInfo: "",
-			subjectInfo: ""
+			departmentOptions: "",
+			subjectOptions: ""
 		}
 		this.state = {
 			// data
 			...this.initial,
-			
+			teachers: undefined,
+			courses: undefined,
+
 			//  methods
 			getAxios: (operation, dataHandler) => {
 				Axios.get(renderURI("/axios") + operation)
@@ -62,6 +64,11 @@ class App extends Component {
 					this.setState({ ...data.session });
 				});
 			},
+			updateDatabase: () => {
+				this.state.getAxios("/database", data => {
+					this.setState({ teachers: data.teachers, courses: data.courses });
+				});
+			},
 			callback: async (handler) => {
 				handler(this);
 			}
@@ -70,6 +77,7 @@ class App extends Component {
 
 	componentDidMount() {
 		this.state.updateSession();
+		this.state.updateDatabase();
 	}
 
 	render() {

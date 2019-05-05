@@ -1,6 +1,6 @@
 var Whitelist = require('../models/whitelist');
 var Teacher = require('../models/teacher');
-var mongoose = require('mongoose');
+var preload = require('../preload');
 
 let tools = {
     checkSession: function (req, res, next) {
@@ -42,37 +42,26 @@ let tools = {
             else { next(); }
         });
     },
-    organizeOutputTeacher: function (docsFromDatabase, req) {
+    organizeOutputTeacher: function (docsFromDatabase) {
         let docs = docsFromDatabase;
         docs = docs.map(doc => {
-            let processedDepartment = doc.departmentid.name ? 
-                {
-                    departmentid: doc.departmentid.id,
-                    name: doc.departmentid.name
-                }
-                :
-                req.session.departmentInfo.id2name[doc.departmentid.toString()];
             return {
-                teacherid: doc.id,
+                id: doc.id,
                 name: doc.name,
-                department: processedDepartment,
+                department: doc.departmentid.name ? doc.departmentid : preload.departmentInfo.id2name[doc.departmentid.toString()],
                 imgurl: doc.imgurl,
                 description: doc.description
             }
         });
         return docs;
     },
-    organizeOutputCourse: function (docsFromDatabase, req) {
+    organizeOutputCourse: function (docsFromDatabase) {
         let docs = docsFromDatabase;
         docs = docs.map(doc => {
-            let processedTeacher = doc.teacherid.name ?
-                tools.organizeOutputTeacher([doc.teacherid], req)[0]
-                :
-                doc.teacherid.toString();
             return {
-                courseid: doc.id,
-                teacherid: processedTeacher,
-                subject: req.session.subjectInfo.id2name[doc.subjectid.toString()],
+                id: doc.id,
+                teacher: doc.teacherid.name ? tools.organizeOutputTeacher([doc.teacherid]) : doc.teacherid.toString(),
+                subject: doc.subjectid.name ? doc.subjectid : preload.subjectInfo.id2name[doc.subjectid.toString()],
                 price: doc.price,
                 description: doc.description
             }

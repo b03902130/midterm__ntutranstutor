@@ -2,6 +2,7 @@ var express = require('express');
 var mongoose = require('mongoose');
 var router = express.Router();
 var { checkSession, checkAuthorized, dealServerError, organizeOutputTeacher, organizeOutputCourse } = require('./tools');
+var preload = require('../preload');
 
 // mongoose schema
 var Teacher = require('../models/teacher');
@@ -22,7 +23,7 @@ function organizeInputCourse(req, res, next) {
         res.status(404).send("No data received");
     }
     if (input.subject) {
-        input.subjectid = req.session.subjectInfo.name2id[input.subject];
+        input.subjectid = preload.subjectInfo.name2id[input.subject];
     }
     let sanitized = {};
     Object.keys(Course.schema.obj).forEach(field => {

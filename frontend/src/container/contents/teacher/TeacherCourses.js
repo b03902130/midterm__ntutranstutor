@@ -24,6 +24,7 @@ class TeacherCourses extends Component {
         let courseid = e.target.id;
         this.props.app.getAxios(`/courses/${courseid}/delete`, data => {
             this.refreshCourses();
+            this.props.app.updateDatabase();
         });
     }
 
@@ -58,8 +59,8 @@ class TeacherCourses extends Component {
                                                             <Card.Title>{course.price}</Card.Title>
                                                             <Card.Text>{course.description}</Card.Text>
                                                             <div>
-                                                                <Link to={`/courses/${course.courseid}/edit`}><Button style={{ margin: "0 5px 5px 0" }} variant="success">編輯課程</Button></Link>
-                                                                <Button id={course.courseid} style={{ margin: "0 5px 5px 0" }} variant="danger" onClick={this.deleteCourse}>刪除課程</Button>
+                                                                <Link to={`/courses/${course.id}/edit`}><Button style={{ margin: "0 5px 5px 0" }} variant="success">編輯課程</Button></Link>
+                                                                <Button id={course.id} style={{ margin: "0 5px 5px 0" }} variant="danger" onClick={this.deleteCourse}>刪除課程</Button>
                                                             </div>
                                                         </Card.Body>
                                                         <Card.Footer className="text-muted"></Card.Footer>
