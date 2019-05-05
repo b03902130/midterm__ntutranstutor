@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from 'react-router-dom';
 import { Dropdown, DropdownButton } from "react-bootstrap";
+import Imgur from './Imgur';
 
 import Axios from 'axios'
 Axios.defaults.withCredentials = true
@@ -16,6 +17,7 @@ class TeacherEdit extends Component {
                 imgurl: "",
                 description: "",
             },
+            filename: "Choose file",
             submitted: false,
         }
     }
@@ -24,6 +26,23 @@ class TeacherEdit extends Component {
         this.props.app.getAxios("/teachers/" + this.props.match.params.id + "/edit", data => {
             this.setState({ info: data.info });
         });
+
+        new Imgur({
+            targetClass: ".imgurUploader",
+            clientid: '428e97466328a8c',
+            callback: this.imageUploaded
+        });
+    }
+
+    imageUploaded = (res) => {
+        if (res.success === true) {
+            console.log(`Image uploaded to Imgur: ${res.data.link}`);
+            this.setState(state => ({ info: { ...state.info, imgurl: res.data.link } }));
+        }
+    };
+
+    fileSelected = (e) => {
+        this.setState({ filename: e.target.files[0].name.slice(0, 23) });
     }
 
     change = (e) => {
@@ -65,6 +84,12 @@ class TeacherEdit extends Component {
                             <Redirect to={`/teachers/${this.props.app.teacherid}`} />
                             :
                             <div className="TeacherForm">
+                                <div className="custom-file imgurUploader" style={{ width: "300px" }}>
+                                    <input type="file" className="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" onChange={this.fileSelected} />
+                                    <label className="custom-file-label" htmlFor="inputGroupFile01">{this.state.filename}</label>
+                                </div>
+                                <img alt="teacher" src={this.state.info.imgurl} />
+
                                 <div>
                                     <label htmlFor="teacher_name">教師名稱</label>
                                     <input id="teacher_name" value={this.state.info.name} onChange={this.change} />
