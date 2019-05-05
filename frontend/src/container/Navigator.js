@@ -33,7 +33,7 @@ class Navigator extends Component {
                         <Nav.Link><NavLink exact to="/about" style={this.linkstyle} activeStyle={this.activeStyle}>關於</NavLink></Nav.Link>
                     </Nav>
                     <Nav className="justify-content-end">
-                        <Nav.Link onClick={() => {this.props.app.getAxios("/connection", console.log)}}>連線狀態</Nav.Link>
+                        {/* <Nav.Link onClick={() => {this.props.app.getAxios("/connection", console.log)}}>連線狀態</Nav.Link> */}
                         {
                             !this.props.app.name ? <Nav.Link href={renderURI("/auth/google")}>登入（powered by Google）</Nav.Link> :
                                 <NavDropdown title={this.props.app.name} id="basic-nav-dropdown" alignRight  >

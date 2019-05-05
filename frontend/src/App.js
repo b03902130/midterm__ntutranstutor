@@ -5,6 +5,8 @@ import renderURI from './renderURI';
 import Content from './container/Content';
 import Navigator from "./container/Navigator";
 
+import TeacherCard from './component/TeacherCard';
+
 import Axios from 'axios'
 Axios.defaults.withCredentials = true
 
@@ -87,6 +89,12 @@ class App extends Component {
 					<div>
 						<Navigator app={this.state} />
 						<Content app={this.state} />
+						{
+							this.state.teachers &&
+							this.state.teachers.order.map(teacherid =>
+								 <TeacherCard teacherid={teacherid} allteachers={this.state.teachers.infos} allcourses={this.state.courses.infos} />
+							)
+						}
 					</div>
 				</BrowserRouter>
 			</div>

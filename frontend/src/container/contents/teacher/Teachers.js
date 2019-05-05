@@ -1,21 +1,21 @@
 import React, { Component } from "react";
 import { ProductCard } from "react-ui-cards";
+import { Link } from "react-router-dom";
+import Button from '@material-ui/core/Button';
+
 
 import Axios from 'axios'
 Axios.defaults.withCredentials = true
 
 class Teachers extends Component {
     render() {
+        let teachers = this.props.app.teachers;
+        let courses = this.props.app.courses;
         return (
             <div>
-                <ProductCard
-                    photos={["https://i.imgur.com/jRVDeI8.jpg"]}
-                    price='工程科學與海洋學系'
-                    productName='Headphones'
-                    description='Donec lectus nulla, molestie aliquam nisl vitae, tempor placerat magna. Morbi dignissim in felis vel aliquet.'
-                    rating={3}
-                    url='https://github.com/nukeop'
-                />
+                <Button variant="contained" color="primary">
+                    Hello World
+                </Button>
             </div>
         );
     };
