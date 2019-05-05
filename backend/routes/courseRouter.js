@@ -39,14 +39,6 @@ function organizeInputCourse(req, res, next) {
 
 // RESTFUL API
 
-// index
-// router.get('/', (req, res, next) => {
-//     Teacher.find().exec().catch(err => { dealServerError(err, res); }).then(docs => {
-//         docs = organizeOutputTeacher(docs, req);
-//         res.status(200).send({ infos: docs });
-//     });
-// });
-
 // create
 router.post('/', checkSession, checkIsTeacher, organizeInputCourse, (req, res, next) => {
     const course = new Course({ ...req.body.data, teacherid: req.session.teacherid });
@@ -54,19 +46,6 @@ router.post('/', checkSession, checkIsTeacher, organizeInputCourse, (req, res, n
         res.status(200).send({ courseid: doc.id });
     });
 });
-
-// show
-// router.get('/:id/', (req, res, next) => {
-//     Teacher.where("_id", req.params.id).exec().catch(err => { dealServerError(err, res); }).then(docs => {
-//         docs = organizeOutputTeacher(docs, req);
-//         if (docs.length === 0) {
-//             res.status(400).send("Teacher unexisted");
-//         }
-//         else {
-//             res.status(200).send({ info: docs[0] });
-//         }
-//     });
-// });
 
 // edit: cause course information is public, no need to check the authorization
 router.get('/:id/edit/', (req, res, next) => {
@@ -80,13 +59,6 @@ router.get('/:id/edit/', (req, res, next) => {
         }
     });
 });
-
-// router.get('/:id/courses/', (req, res, next) => {
-//     Course.where("teacherid", req.params.id).exec().catch(err => { dealServerError(err, res); }).then(docs => {
-//         docs = organizeOutputCourse(docs, req);
-//         res.status(200).send(docs);
-//     });
-// });
 
 // update
 router.post('/:id/put/', checkSession, organizeInputCourse, (req, res, next) => {

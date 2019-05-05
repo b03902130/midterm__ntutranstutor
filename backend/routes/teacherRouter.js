@@ -39,14 +39,6 @@ function organizeInputTeacher(req, res, next) {
 
 // RESTFUL API
 
-// index
-// router.get('/', (req, res, next) => {
-//     Teacher.find().populate("departmentid").exec().catch(err => { dealServerError(err, res); }).then(docs => {
-//         docs = organizeOutputTeacher(docs, req);
-//         res.status(200).send({ infos: docs });
-//     });
-// });
-
 // create
 router.post('/', checkSession, checkAuthorized, organizeInputTeacher, (req, res, next) => {
     Teacher.where("googleid", req.session.googleid).exec().catch(err => { dealServerError(err, res); }).then(docs => {
@@ -62,19 +54,6 @@ router.post('/', checkSession, checkAuthorized, organizeInputTeacher, (req, res,
     })
 });
 
-// show
-router.get('/:id/', (req, res, next) => {
-    Teacher.where("_id", req.params.id).exec().catch(err => { dealServerError(err, res); }).then(docs => {
-        docs = organizeOutputTeacher(docs);
-        if (docs.length === 0) {
-            res.status(400).send("Teacher unexisted");
-        }
-        else {
-            res.status(200).send({ info: docs[0] });
-        }
-    });
-});
-
 // edit: cause teacher information is public, no need to check the authorization
 router.get('/:id/edit/', (req, res, next) => {
     Teacher.where("_id", req.params.id).exec().catch(err => { dealServerError(err, res); }).then(docs => {
@@ -88,6 +67,7 @@ router.get('/:id/edit/', (req, res, next) => {
     });
 });
 
+// show the course of a specific teacher
 router.get('/:id/courses/', (req, res, next) => {
     Course.where("teacherid", req.params.id).populate("teacherid").exec().catch(err => { dealServerError(err, res); }).then(docs => {
         docs = organizeOutputCourse(docs);

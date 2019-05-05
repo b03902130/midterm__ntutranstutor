@@ -48,7 +48,11 @@ let tools = {
             return {
                 id: doc.id,
                 name: doc.name,
-                department: doc.departmentid.name ? doc.departmentid : preload.departmentInfo.id2name[doc.departmentid.toString()],
+                department: !doc.departmentid.name ? preload.departmentInfo.id2name[doc.departmentid.toString()] :
+                    {
+                        id: doc.departmentid.id,
+                        name: doc.departmentid.name
+                    },
                 imgurl: doc.imgurl,
                 description: doc.description
             }
@@ -61,7 +65,11 @@ let tools = {
             return {
                 id: doc.id,
                 teacher: doc.teacherid.name ? tools.organizeOutputTeacher([doc.teacherid]) : doc.teacherid.toString(),
-                subject: doc.subjectid.name ? doc.subjectid : preload.subjectInfo.id2name[doc.subjectid.toString()],
+                subject: !doc.subjectid.name ? preload.subjectInfo.id2name[doc.subjectid.toString()] :
+                    {
+                        id: doc.subjectid.id,
+                        name: doc.subjectid.name
+                    },
                 price: doc.price,
                 description: doc.description
             }
