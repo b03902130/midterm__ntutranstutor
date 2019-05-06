@@ -32,7 +32,7 @@ class Navigator extends Component {
                     <Nav className="mr-auto">
                         <Nav.Link><NavLink exact to="/teachers" style={this.linkstyle} activeStyle={this.activeStyle}>所有教師</NavLink></Nav.Link>
                         <Nav.Link><NavLink exact to="/courses" style={this.linkstyle} activeStyle={this.activeStyle}>所有課程</NavLink></Nav.Link>
-                        <Nav.Link><NavLink exact to="/about" style={this.linkstyle} activeStyle={this.activeStyle}>關於</NavLink></Nav.Link>
+                        <Nav.Link><NavLink exact to="/find" style={this.linkstyle} activeStyle={this.activeStyle}>類別搜尋</NavLink></Nav.Link>
                     </Nav>
                     <Nav className="justify-content-end">
                         {/* <Nav.Link onClick={() => {this.props.app.getAxios("/connection", console.log)}}>連線狀態</Nav.Link> */}
