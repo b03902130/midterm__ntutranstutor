@@ -9,23 +9,35 @@ class Teachers extends Component {
     render() {
         let teachers = this.props.app.teachers;
         let courses = this.props.app.courses;
+        let allDepartments = this.props.app.allDepartments;
         return (
-            <div class="teacher_group" >
-                <Grid
-                    container
-                    direction="row"
-                    justify="center"
-                    alignItems="flex-start"
-                >
-                    {
-                        teachers &&
-                        (teachers.order.map(teacherid =>
-                            <Grid item style={{ margin: "20px" }}>
-                                <TeacherCard teacherid={teacherid} allteachers={teachers.infos} allcourses={courses.infos} />
-                            </Grid>
-                        ))
-                    }
-                </Grid>
+            <div style={{ width: "80%", margin: "auto" }}>
+                {
+                    allDepartments && (
+                        allDepartments.map(department =>
+                            <div class="teacher_group" >
+                                <h2>{teachers.infos[department[0]].department.name}</h2>
+                                <Grid
+                                    container
+                                    direction="row"
+                                    justify="center"
+                                    alignItems="flex-start"
+                                >
+                                    {
+                                        department &&
+                                        (department.map(teacherid =>
+                                            <div style={{ margin: "20px" }}>
+                                                <Grid item>
+                                                    <TeacherCard teacherid={teacherid} allteachers={teachers.infos} allcourses={courses.infos} />
+                                                </Grid>
+                                            </div>
+                                        ))
+                                    }
+                                </Grid>
+                            </div>
+                        )
+                    )
+                }
             </div>
         );
     };

@@ -68,11 +68,38 @@ class App extends Component {
 			},
 			updateDatabase: () => {
 				this.state.getAxios("/database", data => {
-					this.setState({ teachers: data.teachers, courses: data.courses });
+					data.teachers.order.sort((id1, id2) => {
+						if (data.teachers.infos[id1].department.value < data.teachers.infos[id2].department.value) {
+							return -1;
+						}
+					});
+					data.courses.order.sort((id1, id2) => {
+						if (data.courses.infos[id1].subject.value < data.courses.infos[id2].subject.value) {
+							return -1;
+						}
+					});
+					let teachers = data.teachers;
+					let courses = data.courses;
+					let allDepartments = [];
+					let departmentBin = [];
+					let nowValue = teachers.infos[teachers.order[0]].department.value;
+					for (let teacherid of teachers.order) {
+						let testValue = teachers.infos[teacherid].department.value;
+						if (testValue === nowValue) {
+							departmentBin.push(teacherid);
+						}
+						else {
+							allDepartments.push(departmentBin);
+							departmentBin = [teacherid];
+							nowValue = testValue;
+						}
+					}
+
+					this.setState({ teachers: teachers, courses: courses, allDepartments: allDepartments });
 				});
 			},
 			changeTeacherId: (id) => {
-				this.setState({teacherid: id});
+				this.setState({ teacherid: id });
 			}
 		};
 	}

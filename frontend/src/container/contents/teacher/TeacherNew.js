@@ -76,7 +76,7 @@ class TeacherNew extends Component {
         }
         else {
             this.props.app.postAxios("/teachers", this.state.info, data => {
-                this.setState({ submitted: true });
+                this.setState(state => ({ submitted: true, info: { ...state.info, id: data.teacherid } }));
                 this.props.app.updateSession();
                 this.props.app.updateDatabase();
             });
@@ -92,7 +92,7 @@ class TeacherNew extends Component {
                         // <p>You are not authorized</p>
                         :
                         this.state.submitted ?
-                            <Redirect to={`/teachers/${this.props.app.teacherid}`} />
+                            <Redirect to={`/teachers/${this.state.info.id}`} />
                             :
                             <div className="TeacherForm">
                                 <div className="custom-file imgurUploader" style={{ width: "300px" }}>

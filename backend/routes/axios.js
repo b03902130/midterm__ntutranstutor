@@ -30,14 +30,14 @@ router.get('/session', function (req, res, next) {
 router.get('/database', function (req, res, next) {
     let teachers = { order: [], infos: {} };
     let courses = { order: [], infos: {} };
-    Teacher.find().populate({ path: "departmentid", options: { sort: { name: -1 } } }).exec().catch(err => { tools.dealServerError(err, res); }).then(docs => {
+    Teacher.find().populate("departmentid").exec().catch(err => { tools.dealServerError(err, res); }).then(docs => {
         docs = tools.organizeOutputTeacher(docs);
         docs.forEach(teacher => {
             teacher.courses = [];
             teachers.infos[teacher.id] = teacher;
             teachers.order.push(teacher.id);
         });
-        Course.find().populate({ path: "subjectid", options: { sort: { name: -1 } } }).exec().catch(err => { tools.dealServerError(err, res); }).then(docs => {
+        Course.find().populate("subjectid").exec().catch(err => { tools.dealServerError(err, res); }).then(docs => {
             docs = tools.organizeOutputCourse(docs);
             docs.forEach(course => {
                 courses.infos[course.id] = course;

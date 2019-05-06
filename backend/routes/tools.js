@@ -51,7 +51,8 @@ let tools = {
                 department: !doc.departmentid.name ? preload.departmentInfo.id2name[doc.departmentid.toString()] :
                     {
                         id: doc.departmentid.id,
-                        name: doc.departmentid.name
+                        name: doc.departmentid.name,
+                        value: doc.departmentid.value
                     },
                 imgurl: doc.imgurl,
                 description: doc.description
@@ -68,7 +69,8 @@ let tools = {
                 subject: !doc.subjectid.name ? preload.subjectInfo.id2name[doc.subjectid.toString()] :
                     {
                         id: doc.subjectid.id,
-                        name: doc.subjectid.name
+                        name: doc.subjectid.name,
+                        value: doc.subjectid.value
                     },
                 price: doc.price,
                 description: doc.description
