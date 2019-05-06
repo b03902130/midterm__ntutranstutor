@@ -14,7 +14,7 @@ class Teachers extends Component {
         let allDepartments = this.props.app.allDepartments;
         let idRecorder = {};
         return (
-            <div style={{ width: "80%", margin: "auto", marginTop: "120px" }}>
+            <div style={{ width: "80%", margin: "auto" }}>
                 {
                     allDepartments && (
                         allDepartments.map(department =>

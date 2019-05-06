@@ -9,7 +9,7 @@ import About from './contents/About';
 class Content extends Component {
     render() {
         return (
-            <div className="Content">
+            <div className="Content" style={{paddingTop: "60px"}}>
                 <Switch>
                     <Route exact path="/" component={Home} />
                     <Route path="/teachers" render={(props) => {
