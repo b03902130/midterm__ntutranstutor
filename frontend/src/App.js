@@ -82,19 +82,36 @@ class App extends Component {
 					let courses = data.courses;
 					let allDepartments = [];
 					let departmentBin = [];
-					let nowValue = teachers.infos[teachers.order[0]].department.value;
+					let now = teachers.infos[teachers.order[0]].department;
+					let As = [];
+					let A = ["法律學系法學組", "法律學系司法組", "法律學系財經法學組"];
+					let Bs = []; 
+					let B = ["物理學系", "土木工程學系", "機械工程學系", "工程科學及海洋工程學系", "生物環境系統工程學系", "生物機電工程學系", "電機工程學系", "資訊工程學系"]
 					for (let teacherid of teachers.order) {
-						let testValue = teachers.infos[teacherid].department.value;
-						if (testValue === nowValue) {
+						let test = teachers.infos[teacherid].department;
+						if (test.value === now.value) {
 							departmentBin.push(teacherid);
 						}
 						else {
-							allDepartments.push(departmentBin);
+							if (A.includes(now.name)) {
+								As = As.concat(departmentBin);
+							}
+							else if (B.includes(now.name)) {
+								Bs = Bs.concat(departmentBin);
+							}
+							else {
+								allDepartments.push({name: now.name, values: departmentBin});
+							}
 							departmentBin = [teacherid];
-							nowValue = testValue;
+							now = test;
 						}
 					}
-
+					if (Bs.length > 0) {
+						allDepartments.unshift({name: "B 群組", detail: B, values: Bs});
+					}
+					if (As.length > 0) {
+						allDepartments.unshift({name: "A 群組", detail: A, values: As});
+					}
 					this.setState({ teachers: teachers, courses: courses, allDepartments: allDepartments });
 				});
 			},

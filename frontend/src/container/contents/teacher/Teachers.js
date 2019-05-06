@@ -10,13 +10,25 @@ class Teachers extends Component {
         let teachers = this.props.app.teachers;
         let courses = this.props.app.courses;
         let allDepartments = this.props.app.allDepartments;
+        let idRecorder = {};
         return (
             <div style={{ width: "80%", margin: "auto" }}>
                 {
                     allDepartments && (
                         allDepartments.map(department =>
-                            <div class="teacher_group" >
-                                <h2>{teachers.infos[department[0]].department.name}</h2>
+                            <div class="teacher_group" style={{ margin: "50px 0 50px 0" }}>
+                                <h3 style={{
+                                    marginBottom: "15px", color: "#90a4ae",
+                                    fontWeight: 700, textAlign: "center",
+                                }}>{department.name}</h3>
+                                {
+                                    department.detail && (
+                                        <h6 style={{
+                                            marginBottom: "15px", color: "#90a4ae",
+                                            fontWeight: 900, textAlign: "center",
+                                        }}>{department.detail.join("　")}</h6>
+                                    )
+                                }
                                 <Grid
                                     container
                                     direction="row"
@@ -24,13 +36,30 @@ class Teachers extends Component {
                                     alignItems="flex-start"
                                 >
                                     {
-                                        department &&
-                                        (department.map(teacherid =>
-                                            <div style={{ margin: "20px" }}>
-                                                <Grid item>
-                                                    <TeacherCard teacherid={teacherid} allteachers={teachers.infos} allcourses={courses.infos} />
-                                                </Grid>
-                                            </div>
+                                        department.values && (
+                                            department.values.map(teacherid => {
+                                                let teacher = teachers.infos[teacherid];
+                                                if (idRecorder[teacher.department.value]){
+                                                    return (
+                                                        <div style={{ margin: "20px" }}>
+                                                            <Grid item>
+                                                                <TeacherCard teacherid={teacherid} allteachers={teachers.infos} allcourses={courses.infos} />
+                                                            </Grid>
+                                                        </div>
+                                                    );
+                                                }
+                                                else {
+                                                    idRecorder[teacher.department.value] = true;
+                                                    return (
+                                                        <div id={`department-${teacher.department.value}`} style={{ margin: "20px" }}>
+                                                            <Grid item>
+                                                                <TeacherCard teacherid={teacherid} allteachers={teachers.infos} allcourses={courses.infos} />
+                                                            </Grid>
+                                                        </div>
+                                                    );
+                                                }
+                                                    
+                                            }
                                         ))
                                     }
                                 </Grid>
