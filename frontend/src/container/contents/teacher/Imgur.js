@@ -8,7 +8,7 @@ var Imgur = function (options) {
     }
 
     if (!options.clientid) {
-        throw 'Provide a valid Client Id here: https://apidocs.imgur.com/';
+        throw new Error('Provide a valid Client Id here: https://apidocs.imgur.com/');
     }
 
     this.clientid = options.clientid;

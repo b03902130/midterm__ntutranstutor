@@ -19,7 +19,7 @@ class TeacherEdit extends Component {
             },
             filename: "Choose file",
             submitted: false,
-        },
+        };
         this.registered = false;
     }
 

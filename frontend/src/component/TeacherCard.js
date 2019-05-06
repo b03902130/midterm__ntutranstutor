@@ -28,6 +28,15 @@ function TeacherCard(props) {
   let teacher = allteachers[teacherid];
   let courses = teacher.courses;
   courses = courses.map(courseid => allcourses[courseid]);
+
+  let departmentName = teacher.department.name;
+  if (["法律學系法學組", "法律學系司法組", "法律學系財經法學組"].includes(departmentName)) {
+    departmentName = "A 群組"
+  }
+  if (["物理學系", "土木工程學系", "機械工程學系", "工程科學及海洋工程學系", "生物環境系統工程學系", "生物機電工程學系", "電機工程學系", "資訊工程學系"].includes(departmentName)) {
+    departmentName = "B 群組"
+  }
+
   return (
     <Card className={classes.card} style={{ width: "300px" }}>
       <Link to={`/teachers/${teacher.id}`} style={{ textDecoration: 'none', color: 'white' }}>
@@ -47,7 +56,7 @@ function TeacherCard(props) {
               </Grid>
               <Grid item style={{ margin: "5px" }}>
                 <Fab variant="extended" size="small" style={{ backgroundColor: "#2196f3", padding: "5px" }} aria-label="Add" className={classes.margin}>
-                  <HashLink to={`/teachers#department-${teacher.department.value}`} style={{ all: 'unset' }}>
+                  <HashLink to={`/teachers#department-${departmentName}`} style={{ all: 'unset' }}>
                     <span style={{ fontSize: "16px", color: "white", padding: "0 4px 0 4px" }}>{teacher.department.name}</span>
                   </HashLink>
                 </Fab>
@@ -67,7 +76,7 @@ function TeacherCard(props) {
             courses.map(course =>
               <Grid item style={{ margin: "3px" }}>
                 <Button size="small" style={{ border: "#26a69a 1px solid", color: "#26a69a", fontSize: "14px", padding: "5px" }} variant="outlined" className={classes.button}>
-                  <HashLink to={`/courses#subject-${course.subject.value}`} style={{ all: 'unset' }}>{course.subject.name}</HashLink>
+                  <HashLink to={`/courses#subject-${course.subject.name}`} style={{ all: 'unset' }}>{course.subject.name}</HashLink>
                 </Button>
               </Grid>
             )
