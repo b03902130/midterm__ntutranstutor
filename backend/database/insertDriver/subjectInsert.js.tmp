@@ -9,7 +9,7 @@ subjects = subjects.map(subject => {
     }
     return subject;
 });
-subjects = subjects.map(subject => { return { name: subject }; });
+subjects = subjects.map((subject, i) => { return { name: subject, value: i * 1000 }; });
 
 module.exports = {
     Model: Subject,

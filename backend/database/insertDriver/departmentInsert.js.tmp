@@ -9,7 +9,7 @@ departments = departments.map(department => {
     }
     return department;
 });
-departments = departments.map(department => { return { name: department }; });
+departments = departments.map((department, i) => { return { name: department, value: i * 1000 }; });
 
 module.exports = {
     Model: Department,
