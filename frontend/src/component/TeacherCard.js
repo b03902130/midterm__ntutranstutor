@@ -9,11 +9,10 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import Fab from '@material-ui/core/Fab';
-import NavigationIcon from '@material-ui/icons/Navigation';
 
 import { Link } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link'
 
 const styles = {
   card: {
@@ -48,9 +47,9 @@ function TeacherCard(props) {
               </Grid>
               <Grid item style={{ margin: "5px" }}>
                 <Fab variant="extended" size="small" style={{ backgroundColor: "#2196f3", padding: "5px" }} aria-label="Add" className={classes.margin}>
-                  <Link to="/" style={{ all: 'unset' }}>
+                  <HashLink to={`/teachers#department-${teacher.department.value}`} style={{ all: 'unset' }}>
                     <span style={{ fontSize: "16px", color: "white", padding: "0 4px 0 4px" }}>{teacher.department.name}</span>
-                  </Link>
+                  </HashLink>
                 </Fab>
               </Grid>
             </Grid>
@@ -68,7 +67,7 @@ function TeacherCard(props) {
             courses.map(course =>
               <Grid item style={{ margin: "3px" }}>
                 <Button size="small" style={{ border: "#26a69a 1px solid", color: "#26a69a", fontSize: "14px", padding: "5px" }} variant="outlined" className={classes.button}>
-                  <Link to="/" style={{ all: 'unset' }}>{course.subject.name}</Link>
+                  <HashLink to={`/courses#subject-${course.subject.value}`} style={{ all: 'unset' }}>{course.subject.name}</HashLink>
                 </Button>
               </Grid>
             )
