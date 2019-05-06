@@ -6,6 +6,10 @@ const DepartmentSchema = new Schema({
     name: {
         type: String,
         required: [true, 'name field is required.']
+    },
+    value: {
+        type: Number,
+        required: [true, 'value field is required.']
     }
 })
 
