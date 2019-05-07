@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import TeacherCard from '../../../component/TeacherCard';
 import Grid from '@material-ui/core/Grid';
 
-import './Teachers.css';
-
 import Axios from 'axios'
 Axios.defaults.withCredentials = true
 
@@ -13,20 +11,20 @@ class Teachers extends Component {
         let courses = this.props.app.courses;
         let allDepartments = this.props.app.allDepartments;
         return (
-            <div style={{ width: "80%", margin: "auto", marginBottom: "50px" }}>
+            <div style={{ width: "90%", margin: "auto", marginBottom: "50px" }}>
                 {
                     allDepartments && (
                         allDepartments.map(department =>
                             <div class="teacher_group">
-                                <div id={`department-${department.name}`} style={{height: "50px"}}></div>
+                                <div id={`department-${department.name}`} style={{ height: "50px" }}></div>
                                 <h3 style={{
-                                    margin: "15px 0 15px 0", color: "#90a4ae",
+                                    margin: "15px", color: "#90a4ae",
                                     fontWeight: 700, textAlign: "center",
                                 }}>{department.name}</h3>
                                 {
                                     department.detail && (
                                         <h6 style={{
-                                            marginBottom: "15px", color: "#90a4ae",
+                                            margin: "15px", color: "#90a4ae",
                                             fontWeight: 900, textAlign: "center",
                                         }}>{department.detail.join("　")}</h6>
                                     )
