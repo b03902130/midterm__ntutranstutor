@@ -3,7 +3,7 @@
 @media only screen and (min-width: 960px) {
   #panel {
     /* height: 80vh; */
-	  width: 85%;
+	  width: 90%;
     margin: auto;
     /* box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); */
     border-radius: 5px;
@@ -17,10 +17,34 @@
     overflow-y: auto;
   }
 
-  .subpanel::-webkit-scrollbar {
-    width: 0px;  /* Remove scrollbar space */
-    background: transparent;  /* Optional: just make scrollbar invisible */
+  .subpanel::-webkit-scrollbar-track
+  {
+      /* -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); */
+      background-color: rgb(230, 230, 230);
+      border-radius: 10px;
   }
+
+  .subpanel::-webkit-scrollbar
+  {
+      width: 10px;
+      background-color: #F5F5F5;
+  }
+
+  .subpanel::-webkit-scrollbar-thumb
+  {
+      border-radius: 10px;
+      background-color: #90caf9
+      /* background-image: -webkit-gradient(linear,
+                                        left bottom,
+                                        left top,
+                                        color-stop(0.44, rgb(161, 217, 241)),
+                                        color-stop(0.72, rgb(73,125,189)),
+                                        color-stop(0.86, rgb(28,58,148))); */
+  }
+}
+
+#panel {
+  max-width: 1280px;
 }
 
 #teacherImg {
