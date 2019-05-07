@@ -53,7 +53,7 @@ class CourseNew extends Component {
                         // <p>You are not authorized</p>
                         :
                         this.state.submitted ?
-                            <Redirect to={`/teachers/${this.props.app.teacherid}/courses`} />
+                            <Redirect to={`/teachers/${this.props.app.teacherid}`} />
                             :
                             <div className="course_form">
                                 <DropdownButton title={this.state.info.subject}>

@@ -38,11 +38,12 @@ class Teachers extends Component {
                                     {
                                         department.values && (
                                             department.values.map(teacherid => (
-                                                <div style={{ margin: "20px" }}>
-                                                    <Grid item>
+                                                <Grid item>
+                                                    <div id={`teacher-${teacherid}`} style={{ height: "20px" }}></div>
+                                                    <div style={{ margin: "0  20px 20px 20px" }}>
                                                         <TeacherCard teacherid={teacherid} allteachers={teachers.infos} allcourses={courses.infos} />
-                                                    </Grid>
-                                                </div>
+                                                    </div>
+                                                </Grid>
                                             ))
                                         )
                                     }
