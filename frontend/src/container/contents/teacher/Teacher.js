@@ -4,7 +4,7 @@ import roots from '../../../root';
 import './Teacher.css';
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
-import { Card, Button, Row, Col } from 'react-bootstrap'
+import { Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 import ButtonMaterial from '@material-ui/core/Button';
 import { HashLink } from 'react-router-hash-link';
@@ -69,7 +69,7 @@ class Teacher extends Component {
                         <Grid container direction="row" justify="space-evenly" alignItems="flex-start">
                             <Grid item sm={12} md={6} className="subpanel">
                                 <HashLink to={`/teachers#teacher-${teacher.id}`} style={{ textDecoration: "none" }}>
-                                    <img id="teacherImg" src={teacher.imgurl} />
+                                    <img alt="teacher" id="teacherImg" src={teacher.imgurl} />
                                 </HashLink>
                             </Grid>
                             <Grid item sm={12} md={6} className="subpanel">
@@ -137,9 +137,8 @@ class Teacher extends Component {
                                             </Card>
                                         ))
                                     }
-
+                                    <div style={{ width: "100vw" }}></div>
                                 </div>
-
                             </Grid>
                         </Grid>
                     </div>
