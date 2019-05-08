@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Serif+TC:500,600,700,900');
+
+.font {
+    font-family: 'Noto Serif TC', serif;
+}
+
+.boldest {
+    font-weight: 900;
+}
+
+.bolder {
+    font-weight: 700;
+}
+
+.middleGray {
+    color: #546e7a
+}
+
+.deepGray {
+    color: #455a64
+}
+
+.lightGray {
+    color: #90a4ae
+}
+
+.find-title {
+    font-size: 32px;
+    margin-bottom: 10px;
+    /* text-align: center; */
+}
+
+.cell {
+    text-align: center;
+    font-size: 22px;
+    padding: 4px 15px
+}
+
+.mainbody {
+    width: 80%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media only screen and (max-width: 960px) {
+    .cell {
+        font-size: 16px;
+        padding: 4px 8px;
+    }
+    .find-title {
+        font-size: 24px;
+    }
+}

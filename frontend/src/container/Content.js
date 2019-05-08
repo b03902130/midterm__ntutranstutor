@@ -24,7 +24,9 @@ class Content extends Component {
                     <Route path="/courses" render={(props) => {
                         return <CourseController {...this.props} {...props} />
                     }} />
-                    <Route path="/find" component={Find} />
+                    <Route path="/find" render={(props) => {
+                        return <Find {...this.props} {...props} />
+                    }} />
                     <Redirect to="/" />
                 </Switch>
             </div>
