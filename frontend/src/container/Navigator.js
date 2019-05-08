@@ -49,11 +49,7 @@ class Navigator extends Component {
                                     }
                                     {
                                         this.props.app.identity === "teacher" && 
-                                        <NavDropdown.Item><Link style={this.dropstyle} to={"/teachers/" + this.props.app.teacherid + "/edit"}>管理教師頁面</Link></NavDropdown.Item>
-                                    }
-                                    {
-                                        this.props.app.identity === "teacher" && 
-                                        <NavDropdown.Item><Link style={this.dropstyle} to={"/teachers/" + this.props.app.teacherid + "/courses"}>管理課程頁面</Link></NavDropdown.Item>
+                                        <NavDropdown.Item><Link style={this.dropstyle} to={"/teachers/" + this.props.app.teacherid}>我的教師頁面</Link></NavDropdown.Item>
                                     }
                                     <NavDropdown.Divider />
                                     <NavDropdown.Item onClick={this.props.app.logout}>登出</NavDropdown.Item>
