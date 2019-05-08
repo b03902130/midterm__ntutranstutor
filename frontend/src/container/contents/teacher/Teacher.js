@@ -34,6 +34,12 @@ class Teacher extends Component {
                 });
             });
         }
+        else {
+            this.props.app.getAxios(`/courses/${courseid}/delete`, data => {
+                this.refreshCourses();
+                this.props.app.updateDatabase();
+            });
+        }
     }
 
     refreshCourses = () => {

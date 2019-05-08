@@ -75,6 +75,7 @@ Imgur.prototype = {
 
         if (file.type.match(/image/) && file.type !== 'image/svg+xml') {
             document.body.classList.add('busy');
+            document.getElementById("teacherImg").src = "/loading.gif"
             status.classList.remove('bg-success', 'bg-danger');
             status.innerHTML = '';
 
