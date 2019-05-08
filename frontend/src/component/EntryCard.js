@@ -13,6 +13,7 @@ import "./EntryCard.css";
 const styles = {
   card: {
     maxWidth: 345,
+    minWidth: 300
   },
   media: {
     height: 140,

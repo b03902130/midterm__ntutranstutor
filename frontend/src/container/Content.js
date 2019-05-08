@@ -8,6 +8,10 @@ import CourseController from './contents/CourseController';
 import Find from './contents/Find'
 
 class Content extends Component {
+    componentDidUpdate() {
+        window.scrollTo(0, 0);
+    }
+
     render() {
         return (
             <div className="Content" style={{paddingTop: "60px"}}>

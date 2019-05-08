@@ -2,10 +2,11 @@
 
 p, h1, h2, h3, h4, h5, h6, a, textarea, span {
     font-family: 'Noto Serif TC', serif;
-    /* font-weight: 700; */
+    font-weight: 500;
     color: #546e7a;
 }
 
 .entryTitle {
-    font-weight: 500
+    color: #90a4ae;
+    font-weight: 700
 }

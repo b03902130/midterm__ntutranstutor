@@ -38,14 +38,14 @@ function TeacherCard(props) {
   }
 
   return (
-    <Card className={classes.card} style={{ width: "350px" }}>
+    <Card className={classes.card} style={{ width: "320px" }}>
       <Link to={`/teachers/${teacher.id}`} style={{ textDecoration: 'none', color: 'white' }}>
         <CardActionArea>
           <CardMedia
             className={classes.media}
             image={teacher.imgurl}
             title="Contemplative Reptile"
-            style={{ height: "350px" }}
+            style={{ height: "320px" }}
           />
           <CardContent style={{ margin: "5px", padding: "0" }}>
             <Grid container direction="row" justify="space-around" alignItems="center">

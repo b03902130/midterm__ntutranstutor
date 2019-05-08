@@ -1,5 +1,16 @@
 @import url('https://fonts.googleapis.com/css?family=Noto+Serif+TC:500,600,700,900');
 
+@media only screen and (max-width: 960px) {
+    #frontimg img {
+        content: url("/cover_portrait2.png");   
+    }
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
 .font {
     font-family: 'Noto Serif TC', serif;
 }
