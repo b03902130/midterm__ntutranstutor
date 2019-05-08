@@ -5,7 +5,6 @@ import Teachers from './teacher/Teachers';
 import TeacherNew from './teacher/TeacherNew';
 import Teacher from './teacher/Teacher';
 import TeacherEdit from "./teacher/TeacherEdit";
-import TeacherCourses from './teacher/TeacherCourses';
 
 class TeacherController extends Component {
     render() {

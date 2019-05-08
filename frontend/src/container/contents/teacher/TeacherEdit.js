@@ -125,7 +125,7 @@ class TeacherEdit extends Component {
                                                     label="科系名稱"
                                                     value={this.state.info.department}
                                                     onChange={this.teacherChange('department')}
-                                                    style={{ margin: "15px 0 15px 0" }}
+                                                    style={{ margin: "15px 0 15px 0", minWidth: "200px" }}
                                                     placeholder="請選擇你的科系"
                                                 >
                                                     {this.props.app.departmentOptions.map(option => (
