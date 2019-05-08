@@ -81,6 +81,13 @@
   font-family: 'Noto Serif TC', serif;
 }
 
+#priceEdit {
+  font-size: 16px;
+  font-weight: 900;
+  color: #546e7a;
+  font-family: 'Noto Serif TC', serif;
+}
+
 #department {
   font-size: 32px;
   display: inline-block;

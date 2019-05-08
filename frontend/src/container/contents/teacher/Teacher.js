@@ -127,8 +127,8 @@ class Teacher extends Component {
                                                     <Card.Text style={{ marginBottom: "5px" }}>{course.description}</Card.Text>
                                                     {
                                                         privilege && (
-                                                            <div>
-                                                                <Link to={`/courses/${course.id}/edit`}>
+                                                            <div style={{marginTop: "10px"}}>
+                                                                <Link to={`/courses/${course.id}/edit`} style={{textDecoration: "none"}}>
                                                                     <ButtonMaterial onClick={e => { this.switchIdentity(); }} variant="contained" style={{ border: "#26a69a 1px solid", backgroundColor: "#26a69a", padding: "0" }}>
                                                                         <span style={{ fontSize: "16px", color: "white", fontWeight: 700, margin: "0", padding: "0 18px 3px 18px" }}>編 輯</span>
                                                                     </ButtonMaterial>

@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { Redirect } from 'react-router-dom';
-import { Dropdown, DropdownButton } from "react-bootstrap";
+import Grid from "@material-ui/core/Grid";
+import ButtonMaterial from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
 
 import Axios from 'axios'
 Axios.defaults.withCredentials = true
@@ -19,15 +22,13 @@ class CourseNew extends Component {
         }
     }
 
-    change = (e) => {
-        let content = e.target.value;
-        if (e.target.id === "course_price") {
-            this.setState(state => ({ info: { ...state.info, price: content } }));
-        }
-        else if (e.target.id === "course_description") {
-            this.setState(state => ({ info: { ...state.info, description: content } }));
-        }
-    }
+    courseChange = prop => event => {
+        let content = event.target.value;
+        this.setState(state => {
+            state.info[prop] = content;
+            return state;
+        });
+    };
 
     submit = () => {
         if (this.state.info.subject === "科目名稱") {
@@ -45,38 +46,93 @@ class CourseNew extends Component {
     }
 
     render() {
+        let imgurl;
+        if (this.props.app.teachers) {
+            imgurl = this.props.app.teachers.infos[this.props.app.teacherid].imgurl
+        }
         return (
             <div>
                 {
-                    !this.props.app.identity || this.props.app.identity === "outsider" ?
-                        <Redirect to="/" />
-                        // <p>You are not authorized</p>
-                        :
-                        this.state.submitted ?
-                            <Redirect to={`/teachers/${this.props.app.teacherid}`} />
-                            :
-                            <div className="course_form">
-                                <DropdownButton title={this.state.info.subject}>
-                                    {
-                                        this.props.app.subjectOptions.map(subject =>
-                                            <Dropdown.Item><div onClick={e => {
-                                                let selected = e.target.innerText;
-                                                this.setState(state => ({ info: { ...state.info, subject: selected } }))
-                                            }}>{subject}</div></Dropdown.Item>)
-                                    }
-                                </DropdownButton>
-                                <div>
-                                    <label htmlFor="course_price">預期費用</label>
-                                    <input id="course_price" value={this.state.info.price} onChange={this.change} />
-                                </div>
-                                <div>
-                                    <label htmlFor="course_description">課程介紹</label>
-                                    <textarea id="course_description" value={this.state.info.description} onChange={this.change} />
-                                </div>
-                                <div><button type="submit" onClick={this.submit}>submit</button></div>
+                    !this.props.app.identity || this.props.app.identity === "outsider" ? <Redirect to="/" /> :
+                        this.state.submitted ? <Redirect to={`/teachers/${this.props.app.teacherid}`} /> :
+                            imgurl &&
+                            <div id="panel">
+                                <Grid container direction="row" justify="space-evenly" alignItems="flex-start">
+                                    <Grid item sm={12} md={6} className="subpanel">
+                                        <img alt="teacher" id="teacherImg" src={imgurl} />
+                                    </Grid>
+                                    <Grid item sm={12} md={6} className="subpanel">
+                                        <div id="teacherText" style={{ marginTop: "20px" }}>
+                                            <TextField
+                                                select
+                                                InputProps={{
+                                                    style: {
+                                                        fontSize: "30px",
+                                                        display: "block",
+                                                        fontWeight: 900,
+                                                        color: "#546e7a",
+                                                        fontFamily: "Noto Serif TC"
+                                                    }
+                                                }}
+                                                variant="outlined"
+                                                label="科目名稱"
+                                                value={this.state.info.subject}
+                                                onChange={this.courseChange('subject')}
+                                                style={{ margin: "15px 0 15px 0", minWidth: "200px" }}
+                                                placeholder="請選擇你的科目"
+                                            >
+                                                {this.props.app.subjectOptions.map(option => (
+                                                    <MenuItem key={option} value={option}>
+                                                        {option}
+                                                    </MenuItem>
+                                                ))}
+                                            </TextField>
+                                            <TextField
+                                                id="priceEdit"
+                                                label="預定價格"
+                                                value={this.state.info.price}
+                                                onChange={this.courseChange('price')}
+                                                margin="normal"
+                                                variant="outlined"
+                                                style={{
+                                                    margin: "15x 0 15px 0",
+                                                    display: "block",
+                                                }}
+                                                placeholder="800/hr"
+                                            />
+                                            <TextField
+                                                label="課程介紹"
+                                                fullWidth multiline
+                                                value={this.state.info.description}
+                                                onChange={this.courseChange('description')}
+                                                margin="normal"
+                                                variant="outlined"
+                                                style={{ margin: "30px 0 15px 0" }}
+                                                rowsMax={100}
+                                                rows={13}
+                                                placeholder="因為我每天都大喊三聲高雄發大財，成績變好、交到女友、也考上台大了！"
+                                                InputProps={{
+                                                    style: {
+                                                        fontSize: "16px",
+                                                        display: "block",
+                                                        fontWeight: 700,
+                                                        color: "#546e7a",
+                                                        fontFamily: "Noto Serif TC",
+                                                        width: "100%"
+                                                    }
+                                                }}
+                                            />
+                                            <div style={{ marginBottom: "30px" }}>
+                                                <ButtonMaterial onClick={this.submit} variant="contained" style={{ border: "#26a69a 1px solid", backgroundColor: "#26a69a", padding: "0", marginRight: "12px", marginTop: "12px" }}>
+                                                    <span style={{ fontSize: "16px", color: "white", fontWeight: 700, margin: "0", padding: "0 24px 3px 24px" }}>儲 存</span>
+                                                </ButtonMaterial>
+                                            </div>
+                                        </div>
+                                    </Grid>
+                                </Grid>
                             </div>
                 }
-            </ div >
+            </div>
         );
     };
 }
