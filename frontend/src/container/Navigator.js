@@ -12,7 +12,8 @@ class Navigator extends Component {
         super(props);
         this.linkstyle = {
             color: "gray",
-            textDecoration: 'none'
+            textDecoration: 'none',
+            fontFamily: 'Noto Serif TC',
         };
         this.activeStyle = {
             fontWeight: "bold",
@@ -26,13 +27,15 @@ class Navigator extends Component {
     render() {
         return (
             <Navbar fixed="top" bg="white" expand="lg" style={{ boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1)" }} >
-                <Navbar.Brand><NavLink to="/" style={{ color: "black", fontWeight: "bold", textDecoration: 'none' }}>台大轉學生家教平台</NavLink></Navbar.Brand>
+                <div style={{marginBottom: "3px"}}>
+                    <Navbar.Brand><NavLink to="/" style={{ color: "black", fontWeight: 700, textDecoration: 'none' }}>台大轉學生家教平台</NavLink></Navbar.Brand>
+                </div>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
+                        <Nav.Link><NavLink exact to="/find" style={this.linkstyle} activeStyle={this.activeStyle}>類別搜尋</NavLink></Nav.Link>
                         <Nav.Link><NavLink exact to="/teachers" style={this.linkstyle} activeStyle={this.activeStyle}>所有教師</NavLink></Nav.Link>
                         <Nav.Link><NavLink exact to="/courses" style={this.linkstyle} activeStyle={this.activeStyle}>所有課程</NavLink></Nav.Link>
-                        <Nav.Link><NavLink exact to="/find" style={this.linkstyle} activeStyle={this.activeStyle}>類別搜尋</NavLink></Nav.Link>
                     </Nav>
                     <Nav className="justify-content-end">
                         {/* <Nav.Link onClick={() => {this.props.app.getAxios("/connection", console.log)}}>連線狀態</Nav.Link> */}
