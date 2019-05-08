@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Serif+TC:500,600,700,900');
+
+.font {
+    font-family: 'Noto Serif TC', serif;
+}
+
+.boldest {
+    font-weight: 900;
+}
+
+.bolder {
+    font-weight: 700;
+}
+
+.middleGray {
+    color: #546e7a
+}
+
+.deepGray {
+    color: #455a64
+}
+
+.shallowGray {
+    color: #90a4ae
+}

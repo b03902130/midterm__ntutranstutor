@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Serif+TC:500,600,700,900');
+
+p, h1, h2, h3, h4, h5, h6, a, textarea, span {
+    font-family: 'Noto Serif TC', serif;
+    /* font-weight: 700; */
+    color: #546e7a;
+}
+
+.entryTitle {
+    font-weight: 500
+}
