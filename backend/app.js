@@ -46,6 +46,9 @@ require("./config/passport");
 
 app.use("/auth", authRouter);
 app.use("/axios", axiosRouter);
+app.get('*', function(req, res){
+	res.status(200).sendfile(path.join(__dirname, "../frontend/build/index.html"));
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
