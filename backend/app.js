@@ -24,7 +24,7 @@ var app = express();
 // only for development
 var cors = require('cors');
 app.use(cors({
-	origin: ['http://localhost:3000'],
+	origin: ['http://linux1.csie.ntu.edu.tw:1227'],
 	methods: ['GET', 'POST'],
 	credentials: true // enable set cookie
 }));
@@ -39,7 +39,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({ secret: "meowmeowmeowmeowmeow", resave: false, saveUninitialized: false }));
 // app.use(express.static(path.join(__dirname, "../frontend/build/")));
-app.use(express.static(path.join(__dirname, "public/")));
+app.use(express.static(path.join(__dirname, "../frontend/build/")));
 
 app.use(passport.initialize());
 require("./config/passport");

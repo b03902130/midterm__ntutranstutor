@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper"
 import Divider from '@material-ui/core/Divider';
 import EntryCard from "../../component/EntryCard";
 import "./Home.css";
@@ -22,10 +21,10 @@ class Home extends Component {
         return (
             <div>
                 <div id="frontimg">
-                    <img src="/cover3.png" style={{ width: "100%", marginTop: "-40px", boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)" }} />
+                    <img alt="cover" src="/cover3.png" style={{ width: "100%", marginTop: "-40px", boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)" }} />
                 </div>
                 <div style={{ margin: "30px 0" }}></div>
-                <p className="shallowGray bolder font" style={{ fontSize: "26px", textAlign: "center", padding: 0, margin: 0, width: "90%", margin: "auto" }}>POWERED BY NTUTRANS</p>
+                <p className="shallowGray bolder font" style={{ fontSize: "26px", textAlign: "center", padding: 0, width: "90%", margin: "auto" }}>POWERED BY NTUTRANS</p>
                 <div style={{ margin: "60px 0" }}></div>
                 <Divider style={{ width: "80%", margin: "auto" }} />
                 <div style={{ margin: "60px 0" }}></div>

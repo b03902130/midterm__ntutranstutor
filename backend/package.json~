@@ -1,0 +1,24 @@
+{
+  "name": "react-nodejs-passport-server",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "DEBUG=react-nodejs-passport-server:* nodemon --inspect=5001 ./bin/www"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "cookie-parser": "~1.4.3",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "express": "^4.16.4",
+    "express-session": "^1.16.1",
+    "http-errors": "~1.6.2",
+    "jade": "~1.11.0",
+    "mongodb": "^3.2.3",
+    "mongoose": "^5.5.4",
+    "morgan": "^1.9.1",
+    "nodemon": "^1.18.11",
+    "passport": "^0.4.0",
+    "passport-google-oauth": "^1.0.0"
+  }
+}

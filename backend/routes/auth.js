@@ -27,7 +27,7 @@ router.get(
         req.session.subjectOptions = preload.subjectInfo.names;
 
 		tools.refreshSession(req, res, () => {
-			res.redirect("http://localhost:3000/");
+			res.redirect("http://linux1.csie.ntu.edu.tw:1994/");
 		});
 	}
 );
