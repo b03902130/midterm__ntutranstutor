@@ -21,6 +21,15 @@ var axiosRouter = require("./routes/axios");
 
 var app = express();
 
+if (process.argv[2] === "debug") {
+	app.locals.debug = true;
+	console.log("debug mode: double servers");
+}
+else {
+	app.locals.debug = false;
+	console.log("single server mode");
+}
+
 // only for development
 var cors = require('cors');
 app.use(cors({
@@ -47,7 +56,7 @@ require("./config/passport");
 app.use("/auth", authRouter);
 app.use("/axios", axiosRouter);
 app.get('*', function(req, res){
-	res.status(200).sendfile(path.join(__dirname, "../frontend/build/index.html");
+	res.status(200).sendfile(path.join(__dirname, "../frontend/build/index.html"));
 });
 
 // catch 404 and forward to error handler

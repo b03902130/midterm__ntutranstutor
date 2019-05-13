@@ -27,7 +27,13 @@ router.get(
         req.session.subjectOptions = preload.subjectInfo.names;
 
 		tools.refreshSession(req, res, () => {
-			res.redirect("http://linux1.csie.ntu.edu.tw:1994/");
+			if (res.app.locals.double) {
+				res.redirect("http://linux1.csie.ntu.edu.tw:1227/");
+			}
+			else {
+				res.redirect("http://linux1.csie.ntu.edu.tw:1994/");
+			}
+			
 		});
 	}
 );

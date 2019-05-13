@@ -21,6 +21,15 @@ var axiosRouter = require("./routes/axios");
 
 var app = express();
 
+if (process.argv[2] === "double") {
+	app.locals.double = true;
+	console.log("debug mode: double servers");
+}
+else {
+	app.locals.double = false;
+	console.log("single server mode");
+}
+
 // only for development
 var cors = require('cors');
 app.use(cors({
