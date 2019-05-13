@@ -8,3 +8,4 @@
 	- Navigation bar should collapse after clicked
 	- Profile picture should be able to constrain the maximum size to prevent overflow and introduce scrollbar
 	- course edit entry has no marginBotton
+	- should not implement admin with identity switch, should use priviledge identity: root
