@@ -58,7 +58,7 @@ class CourseEdit extends Component {
 
     render() {
         let imgurl;
-        if (this.props.app.teachers) {
+        if (this.props.app.teachers && this.props.app.teacherid) {
             imgurl = this.props.app.teachers.infos[this.props.app.teacherid].imgurl
         }
         return (
