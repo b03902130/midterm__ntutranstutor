@@ -97,7 +97,7 @@ class Teacher extends Component {
                                     }
                                     {
                                         privilege && (
-                                            <div style={{marginBottom: "30px"}}>
+                                            <div style={{marginBottom: "50px"}}>
                                                 <Link to={`/teachers/${this.props.match.params.id}/edit`} style={{ textDecoration: "none" }}>
                                                     <ButtonMaterial onClick={this.switchIdentity} variant="contained" style={{ border: "#2196f3 1px solid", backgroundColor: "#2196f3", padding: "0", marginLeft: "5px", marginTop: "12px" }}>
                                                         <span style={{ fontSize: "16px", color: "white", fontWeight: 700, margin: "0", padding: "0 24px 3px 24px" }}>編輯教師</span>
