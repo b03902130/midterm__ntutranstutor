@@ -4,8 +4,9 @@
 	- No
 
 ## Minors
-	- Button with too small clickable area
 	- Navigation bar should collapse after clicked
 	- Profile picture should be able to constrain the maximum size to prevent overflow that introduces scrollbar
-	- course edit entry has no marginBotton
+
+## fix only if too much time available
+	- Button with too small clickable area
 	- should not implement admin with identity switch, should use priviledge identity: root
