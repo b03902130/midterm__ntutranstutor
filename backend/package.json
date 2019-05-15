@@ -5,7 +5,8 @@
   "scripts": {
     "start": "PORT=80 node ./bin/www",
   	"single": "PORT=1994 DEBUG=react-nodejs-passport-server:* nodemon --inspect=1995 ./bin/www",
-  	"double": "PORT=1994 DEBUG=react-nodejs-passport-server:* nodemon --inspect=1995 ./bin/www double"
+  	"double": "PORT=1994 DEBUG=react-nodejs-passport-server:* nodemon --inspect=1995 ./bin/www double",
+  	"debug": "PORT=1994 DEBUG=react-nodejs-passport-server:* node inspect ./bin/www double"
   },
   "dependencies": {
     "axios": "^0.18.0",

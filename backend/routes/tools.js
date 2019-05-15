@@ -46,7 +46,7 @@ let tools = {
 					next();
 				}
 				else {
-					Whitelist.find({ $or: criteria }, (err, docs => {
+					Whitelist.find({ $or: criteria }, ((err, docs) => {
 						if (docs.length > 0) {
 							identity = "candidate";
 						}
