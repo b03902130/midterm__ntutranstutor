@@ -88,7 +88,7 @@ class App extends Component {
 						}
 						return 0;
 					});
-					
+
 					let allDepartments = this.preprocessTeachers(data);
 					let allSubjects = this.preprocessCourses(data);
 

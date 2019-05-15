@@ -2,7 +2,6 @@
 
 ## Serious: 
 	- should not implement admin with identity switch, should use priviledge identity: root
-		- should use number to indicate priviledge instead of string
 
 ## Minors
 	- Navigation bar should collapse after clicked
