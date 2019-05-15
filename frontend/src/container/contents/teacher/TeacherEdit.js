@@ -87,10 +87,11 @@ class TeacherEdit extends Component {
     }
 
     render() {
+		let editable = this.props.app.identity === "root" || this.props.app.teacherid === this.props.match.params.id;
         return (
             <div>
                 {
-                    !this.props.app.identity || this.props.app.identity === "outsider" ? <Redirect to="/" /> :
+                    (!this.props.app.identity || !editable) ? <Redirect to="/" /> :
                         this.state.deleted ? <Redirect to={`/teachers`} /> :
                             this.state.submitted ? <Redirect to={`/teachers/${this.props.app.teacherid}`} /> :
                                 <div id="panel">

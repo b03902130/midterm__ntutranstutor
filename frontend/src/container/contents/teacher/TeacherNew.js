@@ -99,9 +99,8 @@ class TeacherNew extends Component {
         return (
             <div>
                 {
-                    !this.props.app.identity || this.props.app.identity === "outsider" ?
+                    !this.props.app.identity || !["candidate", "root"].includes(this.props.app.identity) ?
                         <Redirect to="/" />
-                        // <p>You are not authorized</p>
                         :
                         this.state.submitted ?
                             <Redirect to={`/teachers/${this.state.info.id}`} />

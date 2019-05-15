@@ -53,7 +53,7 @@ class CourseNew extends Component {
         return (
             <div>
                 {
-                    !this.props.app.identity || this.props.app.identity === "outsider" ? <Redirect to="/" /> :
+                    !this.props.app.identity || !["root", "teacher"].includes(this.props.app.identity) ? <Redirect to="/" /> :
                         this.state.submitted ? <Redirect to={`/teachers/${this.props.app.teacherid}`} /> :
                             imgurl &&
                             <div id="panel">

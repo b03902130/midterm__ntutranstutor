@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { NavLink, Link } from 'react-router-dom';
 import renderURI from '../renderURI';
-import roots from '../root';
-
 import Axios from 'axios'
 Axios.defaults.withCredentials = true
 
@@ -53,7 +51,7 @@ class Navigator extends Component {
                             !this.props.app.name ? <Nav.Link href={renderURI("/auth/google")}>登入（powered by Google）</Nav.Link> :
                                 <NavDropdown title={this.props.app.name} id="basic-nav-dropdown" alignRight  >
                                     {
-                                        roots.includes(this.props.app.googleid) &&
+                                        this.props.app.identity === "root" &&
                                         <NavDropdown.Item><Link style={this.dropstyle} to="/teachers/new">新增老師</Link></NavDropdown.Item>
                                     }
                                     {

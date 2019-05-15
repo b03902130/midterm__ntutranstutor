@@ -1,6 +1,7 @@
 var Whitelist = require('../models/whitelist');
 var Teacher = require('../models/teacher');
 var preload = require('../preload');
+var roots = require('../root');
 
 let tools = {
     checkSession: function (req, res, next) {
@@ -25,22 +26,37 @@ let tools = {
         let criteria = req.session.emails.map(email => {
             return { gmail: email };
         });
-        let identity = "outsider";
-        Whitelist.find({ $or: criteria }, (err, docs) => {
-            if (docs.length !== 0) {
-                identity = "candidate";
-                Teacher.where("googleid", req.session.googleid).exec((err, docs) => {
-                    req.session.teacherid = undefined;
-                    if (docs.length !== 0) {
-                        identity = "teacher";
-                        req.session.teacherid = docs[0].id;
-                    }
-                    req.session.identity = identity;
-                    next();
-                });
-            }
-            else { next(); }
-        });
+
+		let identity = "outsider";
+		let teacherid = "";
+
+		if (roots.includes(req.session.googleid)) {
+			identity = "root";
+			req.session.identity = identity;
+			req.session.teacherid = teacherid;
+			next();
+		}
+		else {
+			Teacher.where("googleid", req.session.googleid).exec((err, docs) => {
+				if (docs.length > 0) {
+					identity = "teacher";
+					teacherid = docs[0].id;
+					req.session.identity = identity;
+					req.session.teacherid = teacherid;
+					next();
+				}
+				else {
+					Whitelist.find({ $or: criteria }, (err, docs => {
+						if (docs.length > 0) {
+							identity = "candidate";
+						}
+						req.session.identity = identity;
+						req.session.teacherid = teacherid;
+						next();
+					}));
+				}
+			});
+		}
     },
     organizeOutputTeacher: function (docsFromDatabase) {
         let docs = docsFromDatabase;
