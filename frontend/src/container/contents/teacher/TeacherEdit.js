@@ -175,7 +175,7 @@ class TeacherEdit extends Component {
                                     </Grid>
                                 </div>
                 }
-            </ div >
+            </div>
         );
     };
 }

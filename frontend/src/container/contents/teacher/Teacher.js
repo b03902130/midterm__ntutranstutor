@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Grid } from "@material-ui/core"
-import roots from '../../../root';
 import './Teacher.css';
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
@@ -15,7 +14,7 @@ Axios.defaults.withCredentials = true
 class Teacher extends Component {
     switchIdentity = () => {
         let teacherid = this.props.match.params.id;
-        if (roots.includes(this.props.app.googleid)) {
+        if (this.props.app.identity === "root") {
             this.props.app.postAxios("/alias", { teacherid: teacherid }, data => {
                 this.props.app.changeTeacherId(teacherid);
             });
@@ -25,7 +24,7 @@ class Teacher extends Component {
     deleteCourse = (e) => {
         let courseid = e.target.id;
         let teacherid = this.props.match.params.id;
-        if (roots.includes(this.props.app.googleid)) {
+        if (this.props.app.identity === "root") {
             this.props.app.postAxios("/alias", { teacherid: teacherid }, data => {
                 this.props.app.changeTeacherId(teacherid);
                 this.props.app.getAxios(`/courses/${courseid}/delete`, data => {
@@ -57,7 +56,7 @@ class Teacher extends Component {
             teacher = this.props.app.teachers.infos[this.props.match.params.id];
             if (teacher) {
                 courses = teacher.courses.map(id => this.props.app.courses.infos[id]);
-                privilege = roots.includes(this.props.app.googleid) || this.props.match.params.id === this.props.app.teacherid;
+                privilege = this.props.app.identity === "root" || this.props.match.params.id === this.props.app.teacherid;
                 departmentName = teacher.department.name;
                 if (A.includes(departmentName)) {
                     departmentName = "A 群組";

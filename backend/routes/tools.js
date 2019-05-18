@@ -93,6 +93,19 @@ let tools = {
             }
         });
         return docs;
+	},
+    organizeOutputWhite: function (docsFromDatabase) {
+        let docs = docsFromDatabase;
+        docs = docs.map(doc => {
+            return {
+				id: doc.id,
+				name: doc.name,
+				school: doc.school,
+				gmail: doc.gmail,
+				facebook: doc.facebook
+            }
+        });
+        return docs;
     }
 };
 

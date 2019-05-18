@@ -6,6 +6,8 @@ import Home from './contents/Home';
 import TeacherController from './contents/TeacherController';
 import CourseController from './contents/CourseController';
 import Find from './contents/Find'
+import Whitelist from './contents/Whitelist';
+import WhitelistNew from './contents/WhitelistNew';
 
 class Content extends Component {
     componentDidUpdate() {
@@ -27,7 +29,13 @@ class Content extends Component {
                     <Route path="/find" render={(props) => {
                         return <Find {...this.props} {...props} />
                     }} />
-                    <Redirect to="/" />
+                    <Route exact path="/whitelist" render={(props) => {
+                        return <Whitelist {...this.props} {...props} />
+                    }} />
+					<Route path="/whitelist/new" render={(props) => {
+                        return <WhitelistNew {...this.props} {...props} />
+                    }} />
+					<Redirect to="/" />
                 </Switch>
             </div>
         );

@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var teacherRouter = require('./teacherRouter');
 var courseRouter = require('./courseRouter');
+var whiteRouter = require('./whiteRouter')
 var tools = require('./tools');
 var roots = require('../root');
 
@@ -71,6 +72,6 @@ router.post('/alias', function (req, res, next) {
 
 router.use("/teachers", teacherRouter);
 router.use("/courses", courseRouter);
-
+router.use("/whitelist", whiteRouter);
 
 module.exports = router;
