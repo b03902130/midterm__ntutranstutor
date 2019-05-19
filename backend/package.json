@@ -3,10 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "PORT=80 node ./bin/www",
-  	"single": "PORT=1994 DEBUG=react-nodejs-passport-server:* nodemon --inspect=1995 ./bin/www",
-  	"double": "PORT=1994 DEBUG=react-nodejs-passport-server:* nodemon --inspect=1995 ./bin/www double",
-  	"debug": "PORT=1994 DEBUG=react-nodejs-passport-server:* node inspect ./bin/www double"
+    "start": "PORT=1994 node ./bin/www",
+    "single": "PORT=1994 DEBUG=react-nodejs-passport-server:* nodemon --inspect=1995 ./bin/www",
+    "double": "PORT=1994 DEBUG=react-nodejs-passport-server:* nodemon --inspect=1995 ./bin/www double",
+    "debug": "PORT=1994 DEBUG=react-nodejs-passport-server:* node inspect ./bin/www double"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -16,6 +16,7 @@
     "express": "^4.16.4",
     "express-session": "^1.16.1",
     "http-errors": "~1.6.2",
+    "ip": "^1.1.5",
     "jade": "~1.11.0",
     "mongodb": "^3.2.3",
     "mongoose": "^5.5.4",
