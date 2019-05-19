@@ -71,7 +71,7 @@ class App extends Component {
         });
       },
       updateDatabase: () => {
-        this.state.getAxios('/database', data => {
+        this.state.getAxios('/data', data => {
           data.teachers.order.sort((id1, id2) => {
             let value1 = data.teachers.infos[id1].department.value;
             let value2 = data.teachers.infos[id2].department.value;

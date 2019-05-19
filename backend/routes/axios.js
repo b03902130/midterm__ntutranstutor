@@ -28,7 +28,7 @@ router.get('/session', function (req, res, next) {
     }
 });
 
-router.get('/database', function (req, res, next) {
+router.get('/data', function (req, res, next) {
     let teachers = { order: [], infos: {} };
     let courses = { order: [], infos: {} };
     Teacher.find().populate("departmentid").exec().catch(err => { tools.dealServerError(err, res); }).then(docs => {
