@@ -151,7 +151,13 @@ class App extends Component {
         now = test;
       }
     }
-    allDepartments.push({name: now.name, values: departmentBin});
+    if (A.includes(now.name)) {
+      As = As.concat(departmentBin);
+    } else if (B.includes(now.name)) {
+      Bs = Bs.concat(departmentBin);
+    } else {
+      allDepartments.push({name: now.name, values: departmentBin});
+    }
 
     if (Bs.length > 0) {
       allDepartments.unshift({name: 'B 群組', detail: B, values: Bs});
