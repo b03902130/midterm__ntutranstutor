@@ -16,7 +16,7 @@ class TeacherNew extends Component {
     this.state = {
       info: {
         id: this.props.app.teacherid,
-        name: "",
+        name: '',
         department: '就讀科系',
         imgurl: this.props.app.imgurl,
         description: '',
@@ -31,7 +31,7 @@ class TeacherNew extends Component {
     this.setState(state => ({
       info: {
         id: this.props.app.teacherid,
-        name: "",
+        name: '',
         imgurl: this.props.app.imgurl,
         department: '就讀科系',
         description: '',
@@ -79,7 +79,9 @@ class TeacherNew extends Component {
   };
 
   submit = () => {
-    if (this.state.info.department === '就讀科系') {
+    if (document.getElementsByTagName('body')[0].className === 'busy') {
+      alert('請稍後，圖片正在上傳。');
+    } else if (this.state.info.department === '就讀科系') {
       alert('請選擇就讀科系');
     } else if (
       this.state.info.description === '' ||
@@ -87,7 +89,7 @@ class TeacherNew extends Component {
     ) {
       alert('請完整填寫資訊');
     } else {
-      this.props.app.postAxios("/teachers", this.state.info, data => {
+      this.props.app.postAxios('/teachers', this.state.info, data => {
         this.setState(state => ({
           submitted: true,
           info: {...state.info, id: data.teacherid},
