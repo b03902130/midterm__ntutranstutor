@@ -16,7 +16,7 @@ class TeacherNew extends Component {
     this.state = {
       info: {
         id: this.props.app.teacherid,
-        name: this.props.app.name,
+        name: "",
         department: '就讀科系',
         imgurl: this.props.app.imgurl,
         description: '',
@@ -31,7 +31,7 @@ class TeacherNew extends Component {
     this.setState(state => ({
       info: {
         id: this.props.app.teacherid,
-        name: this.props.app.name,
+        name: "",
         imgurl: this.props.app.imgurl,
         department: '就讀科系',
         description: '',

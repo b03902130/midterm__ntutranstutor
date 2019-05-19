@@ -96,7 +96,7 @@ class WhitelistNew extends Component {
                 placeholder="b03902130"
               />
               <TextField
-                label="Gmail"
+                label="Gmail full address"
                 value={this.state.info.gmail}
                 onChange={this.whiteChange('gmail')}
                 margin="normal"
