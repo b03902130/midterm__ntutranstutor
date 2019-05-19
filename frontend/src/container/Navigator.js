@@ -55,6 +55,10 @@ class Navigator extends Component {
                                         <NavDropdown.Item><Link style={this.dropstyle} to="/teachers/new">新增老師</Link></NavDropdown.Item>
                                     }
                                     {
+                                        this.props.app.identity === "root" &&
+                                        <NavDropdown.Item><Link style={this.dropstyle} to="/whitelist">管理白名單</Link></NavDropdown.Item>
+                                    }
+                                    {
                                         this.props.app.identity === "candidate" &&
                                         <NavDropdown.Item><Link style={this.dropstyle} to="/teachers/new">成為教師</Link></NavDropdown.Item>
                                     }

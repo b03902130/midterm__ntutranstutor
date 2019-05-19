@@ -45,7 +45,7 @@ class Find extends Component {
                             )
                         }
                     </Grid>
-                </div >
+                </div>
                 :
                 <p style={{ color: "white" }}>placeholder</p>
         );

@@ -42,7 +42,7 @@ router.post('/new', checkSession, checkIsRoot, (req, res, next) => {
 router.get('/:id/delete/', checkSession, checkIsRoot, (req, res, next) => {
 	Whitelist.findOneAndDelete({ _id: req.params.id, }).exec().catch(err => {dealServerError(err, res)}).then(doc => {
 		if (!doc) {
-			res.status(401).send("You are not allow to delete this course");
+			res.status(401).send("");
 		}
 		res.status(200).send(doc);
 	});
