@@ -66,7 +66,9 @@ class TeacherNew extends Component {
   };
 
   fileSelected = e => {
-    this.setState({filename: e.target.files[0].name.slice(0, 23)});
+    if (e.target.files[0]) {
+      this.setState({filename: e.target.files[0].name.slice(0, 23)});
+    }
   };
 
   change = e => {
