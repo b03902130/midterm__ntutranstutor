@@ -123,7 +123,7 @@ class WhitelistNew extends Component {
                   color: '#546e7a',
                   fontFamily: 'Noto Serif TC',
                 }}
-                placeholder="www.facebook.com/leo19941227"
+                placeholder="https://www.facebook.com/leo19941227"
               />
               <div style={{marginBottom: '30px'}}>
                 <ButtonMaterial

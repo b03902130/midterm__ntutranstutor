@@ -78,7 +78,29 @@ class Whitelist extends Component {
                     <p style={{fontSize: '24px'}}>{white.name}</p>
                     <p style={this.style}>{white.schoolid}</p>
                     <p style={this.style}>{white.gmail}</p>
-                    <p style={this.style}>{white.facebook}</p>
+                    <ButtonMaterial
+                      variant="contained"
+                      style={{
+                        border: '#26a69a 1px solid',
+                        backgroundColor: '#26a69a',
+                        padding: '0',
+                        marginLeft: '10px',
+                        marginTop: '20px',
+                        marginBottom: '20px',
+                      }}>
+                    <a
+                        href={white.facebook}
+                      style={{
+                          textDecoration: 'none',
+                          fontSize: '16px',
+                          color: 'white',
+                          fontWeight: 700,
+                          margin: '0',
+                          padding: '0 18px 3px 18px',
+                        }}>
+                        臉 書
+                      </a>
+                    </ButtonMaterial>
                     <ButtonMaterial
                       variant="contained"
                       style={{
