@@ -87,7 +87,7 @@ class TeacherNew extends Component {
     ) {
       alert('請完整填寫資訊');
     } else {
-      this.props.app.postAxios(this.props.match.path, this.state.info, data => {
+      this.props.app.postAxios("/teachers", this.state.info, data => {
         this.setState(state => ({
           submitted: true,
           info: {...state.info, id: data.teacherid},

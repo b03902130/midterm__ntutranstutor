@@ -24,7 +24,7 @@ router.get('/', checkSession, checkIsRoot, (req, res, next) => {
 });
 
 // create
-router.post('/new', checkSession, checkIsRoot, (req, res, next) => {
+router.post('/', checkSession, checkIsRoot, (req, res, next) => {
 	Whitelist.where("gmail", req.body.data.gmail).exec().catch(err => { dealServerError(err, res);}).then(docs => {
 		if(docs.length > 0) {
 			res.status(400).send("The gmail is already regiested as a root");

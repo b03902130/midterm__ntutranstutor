@@ -39,7 +39,7 @@ class WhitelistNew extends Component {
     if (!allFilled) {
       alert('請完整填寫資訊');
     } else {
-      this.props.app.postAxios('/whitelist/new', this.state.info, data => {
+      this.props.app.postAxios('/whitelist', this.state.info, data => {
         this.setState({submitted: true});
       });
     }
