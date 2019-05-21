@@ -47,7 +47,11 @@
 			- 密碼：leo19941227
 
 - Build
-	
+  1. `git clone https://github.com/b03902130/midterm_ntutranstutor.git`
+  2. `cd midterm_ntutranstutor/backend/`
+  3. `npm install`
+  4. `npm start`
+  5. 只需要backend部分跑起來即可正常運作，會跑在 http://localhost:1994/
 
 ### 其他說明
 

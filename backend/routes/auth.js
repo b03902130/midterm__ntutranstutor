@@ -28,10 +28,10 @@ router.get(
 
 		tools.refreshSession(req, res, () => {
 			if (res.app.locals.double) {
-				res.redirect("http://linux1.csie.ntu.edu.tw:1227/");
+				res.redirect("http://localhost:1227/");
 			}
 			else {
-				res.redirect("http://linux1.csie.ntu.edu.tw:1994/");
+				res.redirect("http://localhost:1994/");
 			}
 			
 		});

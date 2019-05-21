@@ -14,7 +14,7 @@ passport.use(
 		{
 			clientID: "884234383717-ld5dehngne5hnigsqesg3de0pkiv8122.apps.googleusercontent.com",
 			clientSecret: "3ZXSNdg9PxFzHZttMLSDetBC",
-			callbackURL: "http://linux1.csie.ntu.edu.tw:1994/auth/google/callback"
+      callbackURL: "http://localhost:1994/auth/google/callback"
 		},
 		function(accessToken, refreshToken, profile, done) {
 			var userData = {
