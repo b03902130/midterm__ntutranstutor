@@ -83,7 +83,7 @@ function TeacherCard(props) {
           }
         </Grid>
       </CardActions>
-    </Card >
+    </Card>
   );
 }
 
