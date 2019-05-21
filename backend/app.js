@@ -48,7 +48,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({ secret: "meowmeowmeowmeowmeow", resave: false, saveUninitialized: false }));
 // app.use(express.static(path.join(__dirname, "../frontend/build/")));
-app.use(express.static(path.join(__dirname, "../frontend/build/")));
+app.use(express.static(path.join(__dirname, "public/")));
 
 app.use(passport.initialize());
 require("./config/passport");
@@ -56,7 +56,7 @@ require("./config/passport");
 app.use("/auth", authRouter);
 app.use("/axios", axiosRouter);
 app.get('*', function(req, res){
-	res.status(200).sendfile(path.join(__dirname, "../frontend/build/index.html"));
+	res.status(200).sendfile(path.join(__dirname, "public/index.html"));
 });
 
 // catch 404 and forward to error handler
