@@ -47,11 +47,17 @@
 			- 密碼：leo19941227
 
 - Build
-  1. `git clone https://github.com/b03902130/midterm_ntutranstutor.git`
-  2. `cd midterm_ntutranstutor/backend/`
-  3. `npm install`
-  4. `npm start`
-  5. 只需要backend部分跑起來即可正常運作，會跑在 http://localhost:1994/
+	- backend
+		1. `git clone https://github.com/b03902130/midterm_ntutranstutor.git`
+		2. `cd midterm_ntutranstutor/backend/`
+		3. `npm install`
+		4. `npm start`
+		5. 只需要backend資料夾的部分跑起來網站即可正常運作，會跑在 http://localhost:1994/
+	- frontend
+		1. `cd midterm_ntutranstutor/frontend/`
+		2. `npm install`
+		3. `npm start`
+		4. 想要讓此frontend development server可以和backend正確溝通的話，開啟backend的指令改成`npm run double`
 
 ### 其他說明
 
