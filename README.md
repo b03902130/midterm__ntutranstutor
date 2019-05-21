@@ -4,8 +4,8 @@
 為轉學生社團(台大轉聯會)提供能讓社員自行刊登家教資訊（針對轉學考）的網站
 
 ### 連結
-- Demo: http://linux1.csie.ntu.edu.tw:1994/
 - Github: https://github.com/b03902130/midterm_ntutranstutor
+- Demo: http://linux1.csie.ntu.edu.tw:1994/
 
 ### 使用說明
 - App
