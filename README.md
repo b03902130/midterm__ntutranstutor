@@ -4,7 +4,7 @@
 為轉學生社團(台大轉聯會)提供能讓社員自行刊登家教資訊（針對轉學考）的網站
 
 ### 連結
-- Deploy: http://linux1.csie.ntu.edu.tw:1994/
+- Demo: http://linux1.csie.ntu.edu.tw:1994/
 - Github: https://github.com/b03902130/midterm_ntutranstutor
 
 ### 使用說明
@@ -38,7 +38,7 @@
 				- 有列在白名單上的Gmail才能刊登教師資訊
 				- 主要是認Gmail，白名單上其他的欄位如姓名學號臉書，是方便管理用的
 		3. 在「所有教師」和「所有課程」的列表中，每一張教師卡片點進去都能編輯該教師的個人和課程資訊
-	- Demo:
+	- Demo accounts:
 		- Admin
 			- 帳號：ntutrans2019@gmail.com
 			- 密碼：leo19941227
@@ -47,17 +47,28 @@
 			- 密碼：leo19941227
 
 - Build
-	- backend
-		1. `git clone https://github.com/b03902130/midterm_ntutranstutor.git`
-		2. `cd midterm_ntutranstutor/backend/`
-		3. `npm install`
-		4. `npm start`
-		5. 只需要backend資料夾的部分跑起來網站即可正常運作，會跑在 http://localhost:1994/
-	- frontend
-		1. `cd midterm_ntutranstutor/frontend/`
-		2. `npm install`
-		3. `npm start`
-		4. 想要讓此frontend development server可以和backend正確溝通的話，開啟backend的指令改成`npm run double`
+  - 執行環境預設為Linux，如果在Windows上執行，則須修改backend和frontend的package.json中設定環境變數的寫法：
+    - Linux: `PORT=1994 next_command`
+    - Windows: `SET PORT=1994 & next_command` (前面加SET，後面加&)
+      - frontend的package.json只有PORT要改
+      - backend的package.json要改PORT和DEBUG兩個變數
+    - backend用的port是1994，frontend用的port是1227
+	- Setup
+    1. `git clone https://github.com/b03902130/midterm_ntutranstutor.git`
+    2. `cd midterm_ntutranstutor/backend/`
+    3. `npm install`
+    4. `cd ../frontend/`
+    5. `npm install`
+  - Demo at local
+    1. `cd midterm_ntutranstutor/backend/`
+    2. `npm start`
+    3. Demo server runs at `http://localhost:1994/`
+	- Develop at local
+    1. `cd midterm_ntutranstutor/backend/`
+    2. `npm run double`
+    3. `cd ../frontend/`
+    4. `npm start`
+    5. Both frontend and backend servers will refresh on file changes, URL: `http://localhost:1227/`
 
 ### 其他說明
 
